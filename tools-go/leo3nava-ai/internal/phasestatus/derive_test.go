@@ -123,6 +123,160 @@ func TestDeriveTaskProgressSingleTask(t *testing.T) {
 	}
 }
 
+// --- Dependency derivation tests ---
+
+func TestDeriveDependenciesAllPhasesComplete(t *testing.T) {
+	m := map[ArtifactType]ArtifactState{
+		ArtifactProposal:      ArtifactDone,
+		ArtifactSpecs:         ArtifactDone,
+		ArtifactDesign:        ArtifactDone,
+		ArtifactTasks:         ArtifactDone,
+		ArtifactApplyProgress: ArtifactDone,
+		ArtifactVerifyReport:  ArtifactDone,
+	}
+	tp := TaskProgress{Total: 3, Checked: 3, Percent: 100.0}
+
+	deps, reasons := deriveDependencies(m, tp)
+
+	if len(reasons) != 0 {
+		t.Errorf("blockedReasons: want empty, got %v", reasons)
+	}
+	for _, phase := range PhaseOrder {
+		if state := deps[phase]; state != DepAllDone {
+			t.Errorf("phase %s: want %s, got %s", phase, DepAllDone, state)
+		}
+	}
+}
+
+func TestDeriveDependenciesBlockedByMissingDesign(t *testing.T) {
+	m := map[ArtifactType]ArtifactState{
+		ArtifactProposal: ArtifactDone,
+		ArtifactSpecs:    ArtifactDone,
+		ArtifactDesign:   ArtifactMissing,
+		ArtifactTasks:    ArtifactMissing,
+	}
+	tp := TaskProgress{}
+
+	deps, reasons := deriveDependencies(m, tp)
+
+	if len(reasons) != 0 {
+		t.Errorf("blockedReasons: want empty, got %v", reasons)
+	}
+	// proposal and specs are all_done
+	if deps[PhaseProposal] != DepAllDone {
+		t.Errorf("proposal: want %s, got %s", DepAllDone, deps[PhaseProposal])
+	}
+	if deps[PhaseSpecs] != DepAllDone {
+		t.Errorf("specs: want %s, got %s", DepAllDone, deps[PhaseSpecs])
+	}
+	// design is ready (prior gates satisfied, artifact missing)
+	if deps[PhaseDesign] != DepReady {
+		t.Errorf("design: want %s, got %s", DepReady, deps[PhaseDesign])
+	}
+	// tasks is blocked (design not all_done)
+	if deps[PhaseTasks] != DepBlocked {
+		t.Errorf("tasks: want %s, got %s", DepBlocked, deps[PhaseTasks])
+	}
+}
+
+func TestDeriveDependenciesEarlyMissingProposal(t *testing.T) {
+	m := map[ArtifactType]ArtifactState{
+		ArtifactProposal: ArtifactMissing,
+		ArtifactSpecs:    ArtifactMissing,
+		ArtifactDesign:   ArtifactMissing,
+	}
+	tp := TaskProgress{}
+
+	deps, reasons := deriveDependencies(m, tp)
+
+	if len(reasons) != 0 {
+		t.Errorf("blockedReasons: want empty, got %v", reasons)
+	}
+	// proposal is ready (first in chain, artifact missing)
+	if deps[PhaseProposal] != DepReady {
+		t.Errorf("proposal: want %s, got %s", DepReady, deps[PhaseProposal])
+	}
+	// everything else is blocked
+	for _, phase := range PhaseOrder[1:] {
+		if deps[phase] != DepBlocked {
+			t.Errorf("phase %s: want %s, got %s", phase, DepBlocked, deps[phase])
+		}
+	}
+}
+
+func TestDeriveDependenciesAnomalyTasksDoneNoApplyProgress(t *testing.T) {
+	m := map[ArtifactType]ArtifactState{
+		ArtifactProposal:      ArtifactDone,
+		ArtifactSpecs:         ArtifactDone,
+		ArtifactDesign:        ArtifactDone,
+		ArtifactTasks:         ArtifactDone,
+		ArtifactApplyProgress: ArtifactMissing,
+		ArtifactVerifyReport:  ArtifactMissing,
+	}
+	tp := TaskProgress{Total: 5, Checked: 5, Percent: 100.0}
+
+	deps, reasons := deriveDependencies(m, tp)
+
+	// All gates before apply should be all_done
+	if deps[PhaseProposal] != DepAllDone {
+		t.Errorf("proposal: want %s, got %s", DepAllDone, deps[PhaseProposal])
+	}
+	if deps[PhaseSpecs] != DepAllDone {
+		t.Errorf("specs: want %s, got %s", DepAllDone, deps[PhaseSpecs])
+	}
+	if deps[PhaseDesign] != DepAllDone {
+		t.Errorf("design: want %s, got %s", DepAllDone, deps[PhaseDesign])
+	}
+	if deps[PhaseTasks] != DepAllDone {
+		t.Errorf("tasks: want %s, got %s", DepAllDone, deps[PhaseTasks])
+	}
+	// apply is blocked (anomaly: tasks 100% but apply-progress missing)
+	if deps[PhaseApply] != DepBlocked {
+		t.Errorf("apply: want %s, got %s", DepBlocked, deps[PhaseApply])
+	}
+	// verify is blocked (apply not all_done)
+	if deps[PhaseVerify] != DepBlocked {
+		t.Errorf("verify: want %s, got %s", DepBlocked, deps[PhaseVerify])
+	}
+	// Anomaly should produce blockedReasons
+	if len(reasons) == 0 {
+		t.Error("blockedReasons: want non-empty for anomaly, got empty")
+	}
+}
+
+func TestDeriveDependenciesAnomalyTasksDoneApplyPartial(t *testing.T) {
+	m := map[ArtifactType]ArtifactState{
+		ArtifactProposal:      ArtifactDone,
+		ArtifactSpecs:         ArtifactDone,
+		ArtifactDesign:        ArtifactDone,
+		ArtifactTasks:         ArtifactDone,
+		ArtifactApplyProgress: ArtifactPartial,
+		ArtifactVerifyReport:  ArtifactMissing,
+	}
+	// Tasks not 100% — not an anomaly, just normal apply in progress
+	tp := TaskProgress{Total: 5, Checked: 3, Percent: 60.0}
+
+	deps, reasons := deriveDependencies(m, tp)
+
+	// All prior gates all_done
+	for _, phase := range PhaseOrder[:4] {
+		if deps[phase] != DepAllDone {
+			t.Errorf("phase %s: want %s, got %s", phase, DepAllDone, deps[phase])
+		}
+	}
+	// apply is ready (prior gates satisfied, tasks not 100% — normal flow)
+	if deps[PhaseApply] != DepReady {
+		t.Errorf("apply: want %s, got %s", DepReady, deps[PhaseApply])
+	}
+	// verify is blocked
+	if deps[PhaseVerify] != DepBlocked {
+		t.Errorf("verify: want %s, got %s", DepBlocked, deps[PhaseVerify])
+	}
+	if len(reasons) != 0 {
+		t.Errorf("blockedReasons: want empty (normal flow), got %v", reasons)
+	}
+}
+
 func TestDeriveTaskProgressPercentRounding(t *testing.T) {
 	m := map[ArtifactType]ArtifactState{
 		ArtifactTasks: ArtifactDone,
