@@ -1,0 +1,60 @@
+schemaName: sdd.state
+schemaVersion: 1
+changeName: homologate-sdd-execution-persistence-contracts
+artifactStore: openspec
+currentPhase: complete
+completedPhases:
+  - explore
+  - propose
+  - spec
+  - security-applicability
+  - design
+  - test-design
+  - tasks
+  - apply
+  - verify
+  - archive
+artifactRefs:
+  explore:
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/explore.md
+  proposal:
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/proposal.md
+  specs:
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/specs/sdd-execution-persistence-contracts/spec.md
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/specs/sdd-security-applicability-workflow/spec.md
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/specs/sdd-security-design-workflow/spec.md
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/specs/sdd-test-design-workflow/spec.md
+  securityApplicability:
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/security-applicability.md
+  design:
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/design.md
+  securityDesign: []
+  testDesign:
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/test-design.md
+  tasks:
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/tasks.md
+  applyProgress:
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/tasks.md#phase-1-shared-contract-boundary
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/tasks.md#phase-2-phase-artifact-contracts
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/tasks.md#phase-3-mutation-heavy-contracts
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/tasks.md#phase-4-security-and-test-workflow-compatibility
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/tasks.md#phase-5-specs-and-static-evidence
+  verifyReport:
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/verify-report.md
+  archiveReport:
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/archive-report.md
+  state:
+    - openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/state.yaml
+delivery:
+  deliveryStrategy: auto-chain
+  reviewBudgetLines: 400
+  chainStrategy: stacked-to-main
+  chainPlanRef: openspec/changes/archive/2026-07-02-homologate-sdd-execution-persistence-contracts/tasks.md#suggested-work-units
+  sizeException:
+    approved: false
+    approver: null
+    rationale: null
+nextRecommended: none
+blockedReasons: []
+stateRevision: 2026-07-02T02:00:00Z
+updatedAt: 2026-07-02T02:00:00Z

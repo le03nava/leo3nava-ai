@@ -1,0 +1,63 @@
+schemaName: sdd.state
+schemaVersion: 1
+changeName: inline-secure-design-in-design-md
+artifactStore: openspec
+currentPhase: archive
+completedPhases:
+  - explore
+  - propose
+  - spec
+  - design
+  - test-design
+  - tasks
+  - apply
+  - review
+  - review-security
+  - verify
+  - archive
+artifactRefs:
+  explore:
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/explore.md
+  proposal:
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/proposal.md
+  specs:
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/specs/sdd-design-workflow/spec.md
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/specs/sdd-execution-persistence-contracts/spec.md
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/specs/sdd-review-security-workflow/spec.md
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/specs/sdd-review-workflow/spec.md
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/specs/sdd-security-design-workflow/spec.md
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/specs/sdd-security-guideline-catalog/spec.md
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/specs/sdd-test-design-workflow/spec.md
+  securityApplicability: []
+  design:
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/design.md
+  securityDesign: []
+  testDesign:
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/test-design.md
+  tasks:
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/tasks.md
+  applyProgress:
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/tasks.md
+  reviewReport:
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/review-report.md
+  securityReviewReport:
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/review-security-report.md
+  verifyReport:
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/verify-report.md
+  archiveReport:
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/archive-report.md
+  state:
+    - openspec/changes/archive/2026-07-05-inline-secure-design-in-design-md/state.yaml
+delivery:
+  deliveryStrategy: auto-chain
+  reviewBudgetLines: 400
+  chainStrategy: stacked-to-main
+  chainPlanRef: null
+  sizeException:
+    approved: false
+    approver: null
+    rationale: null
+nextRecommended: none
+blockedReasons: []
+stateRevision: "2026-07-05T12:00:00Z"
+updatedAt: "2026-07-05T12:00:00Z"

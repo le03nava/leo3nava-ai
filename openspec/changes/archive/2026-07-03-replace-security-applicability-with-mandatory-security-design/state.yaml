@@ -1,0 +1,65 @@
+schemaName: sdd.state
+schemaVersion: 1
+changeName: replace-security-applicability-with-mandatory-security-design
+artifactStore: openspec
+currentPhase: archive
+completedPhases:
+  - explore
+  - propose
+  - spec
+  - design
+  - security-design
+  - test-design
+  - tasks
+  - apply
+  - review
+  - review-security
+  - verify
+  - archive
+artifactRefs:
+  explore:
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/explore.md
+  proposal:
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/proposal.md
+  specs:
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/specs/sdd-review-security-workflow/spec.md
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/specs/sdd-security-applicability-workflow/spec.md
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/specs/sdd-security-design-workflow/spec.md
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/specs/sdd-test-design-workflow/spec.md
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/specs/sdd-review-workflow/spec.md
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/specs/sdd-execution-persistence-contracts/spec.md
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/specs/sdd-security-guideline-catalog/spec.md
+  securityApplicability: []
+  design:
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/design.md
+  securityDesign:
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/security-design.md
+  testDesign:
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/test-design.md
+  tasks:
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/tasks.md
+  applyProgress:
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/apply-evidence.md
+  reviewReport:
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/review-report.md
+  securityReviewReport:
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/review-security-report.md
+  verifyReport:
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/verify-report.md
+  archiveReport:
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/archive-report.md
+  state:
+    - openspec/changes/archive/2026-07-03-replace-security-applicability-with-mandatory-security-design/state.yaml
+delivery:
+  deliveryStrategy: auto-chain
+  reviewBudgetLines: 400
+  chainStrategy: stacked-to-main
+  chainPlanRef: null
+  sizeException:
+    approved: false
+    approver: null
+    rationale: null
+nextRecommended: none
+blockedReasons: []
+stateRevision: '2026-07-03T15:41:31.6033096-06:00'
+updatedAt: '2026-07-03T15:41:31.6033096-06:00'

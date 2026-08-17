@@ -1,0 +1,55 @@
+schemaName: sdd.state
+schemaVersion: 1
+changeName: canonical-review-json-excel-exporter
+artifactStore: openspec
+currentPhase: archive
+completedPhases:
+  - proposal
+  - spec
+  - design
+  - test-design
+  - tasks
+  - apply
+  - review
+  - review-security
+  - verify
+artifactRefs:
+  explore: []
+  proposal:
+    - openspec/changes/canonical-review-json-excel-exporter/proposal.md
+  specs:
+    - openspec/changes/canonical-review-json-excel-exporter/specs/canonical-review-json-excel-exporter/spec.md
+  securityApplicability: []
+  design:
+    - openspec/changes/canonical-review-json-excel-exporter/design.md
+  securityDesign: []
+  testDesign:
+    - openspec/changes/canonical-review-json-excel-exporter/test-design.md
+  tasks:
+    - openspec/changes/canonical-review-json-excel-exporter/tasks.md
+  applyProgress:
+    - openspec/changes/canonical-review-json-excel-exporter/tasks.md
+  reviewReport:
+    - openspec/changes/canonical-review-json-excel-exporter/review-report.json
+    - openspec/changes/canonical-review-json-excel-exporter/review-report.md
+  securityReviewReport:
+    - openspec/changes/canonical-review-json-excel-exporter/review-security-report.json
+    - openspec/changes/canonical-review-json-excel-exporter/review-security-report.md
+  verifyReport:
+    - openspec/changes/canonical-review-json-excel-exporter/verify-report.md
+  archiveReport: []
+  state:
+    - openspec/changes/canonical-review-json-excel-exporter/state.yaml
+delivery:
+  deliveryStrategy: null
+  reviewBudgetLines: null
+  chainStrategy: null
+  chainPlanRef: null
+  sizeException:
+    approved: false
+    approver: null
+    rationale: null
+nextRecommended: archive
+blockedReasons: []
+stateRevision: "2026-07-10T23:20:30Z-verify"
+updatedAt: "2026-07-10T23:20:30Z"

@@ -1,0 +1,480 @@
+{
+  "schemaName": "sdd.test-cases",
+  "schemaVersion": 1,
+  "changeName": "sdd-review-security-homologation",
+  "generatedBy": "sdd-test-design",
+  "updatedBy": "sdd-verify",
+  "updatedAt": "2026-07-12T12:00:00Z",
+  "cases": [
+    {
+      "id": "TC-C-001",
+      "description": "Catalog schemaVersion equals 3 at top-level header",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "catalog-v3: CATALOG-001 — Schema Version",
+      "category": "catalog-header"
+    },
+    {
+      "id": "TC-C-002",
+      "description": "Pre-v3 schemaVersion (less than 3) is detectable as incompatible",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "catalog-v3: CATALOG-001 — Schema Version (pre-v3 scenario)",
+      "category": "catalog-header"
+    },
+    {
+      "id": "TC-C-003",
+      "description": "generatedHumanViewRef key is absent from catalog header",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "catalog-v3: CATALOG-002 — generatedHumanViewRef Removed from Header",
+      "category": "catalog-header"
+    },
+    {
+      "id": "TC-C-004",
+      "description": "reporting key is absent from catalog header",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "catalog-v3: CATALOG-003 — reporting Object Removed from Header",
+      "category": "catalog-header"
+    },
+    {
+      "id": "TC-C-005",
+      "description": "authority key is absent from catalog header",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "catalog-v3: CATALOG-004 — authority Object Removed from Header",
+      "category": "catalog-header"
+    },
+    {
+      "id": "TC-C-006",
+      "description": "Every sourceRow contains a non-null ownerPhase field",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "catalog-v3: CATALOG-005 — ownerPhase Field Present on Every sourceRow",
+      "category": "catalog-rows"
+    },
+    {
+      "id": "TC-C-007",
+      "description": "No sourceRow contains the legacy defaultOwnerPhase field (count must be 0)",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "catalog-v3: CATALOG-005 / CATALOG-009 — defaultOwnerPhase Removed",
+      "category": "catalog-rows"
+    },
+    {
+      "id": "TC-C-008",
+      "description": "Every sourceRow contains a non-null route field",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "catalog-v3: CATALOG-006 — route Field Present on Every sourceRow",
+      "category": "catalog-rows"
+    },
+    {
+      "id": "TC-C-009",
+      "description": "No sourceRow contains the legacy defaultRoute field (count must be 0)",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "catalog-v3: CATALOG-006 / CATALOG-010 — defaultRoute Removed",
+      "category": "catalog-rows"
+    },
+    {
+      "id": "TC-C-010",
+      "description": "No sourceRow contains a guidelineRefs field",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "catalog-v3: CATALOG-007 — guidelineRefs Removed from sourceRows",
+      "category": "catalog-rows"
+    },
+    {
+      "id": "TC-C-011",
+      "description": "No sourceRow contains an evidenceExpectation field",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "catalog-v3: CATALOG-008 — evidenceExpectation Removed from sourceRows",
+      "category": "catalog-rows"
+    },
+    {
+      "id": "TC-C-012",
+      "description": "sourceRows count equals exactly 155; every row has non-empty guidelineText",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "catalog-v3: CATALOG-011 — All 155 sourceRows Preserved",
+      "category": "catalog-rows"
+    },
+    {
+      "id": "TC-S-001",
+      "description": "Schema declares schemaVersion with minimum: 3",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "schema-v3: SCHEMA-001 — schemaVersion Is 3",
+      "category": "schema-header"
+    },
+    {
+      "id": "TC-S-002",
+      "description": "Top-level required[] contains exactly 16 field names (no more, no fewer)",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "schema-v3: SCHEMA-002 — required[] Contains Exactly 16 Fields",
+      "category": "schema-structure"
+    },
+    {
+      "id": "TC-S-003",
+      "description": "None of the 8 removed property keys exist in top-level properties",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "schema-v3: SCHEMA-003 — Removed Properties Must Not Exist",
+      "category": "schema-structure"
+    },
+    {
+      "id": "TC-S-004",
+      "description": "catalogRef is defined as a const with exact expected path value",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "schema-v3: SCHEMA-004 — catalogRef Is a Constant",
+      "category": "schema-structure"
+    },
+    {
+      "id": "TC-S-005",
+      "description": "generalReviewRef is defined as type:string with minLength:1",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "schema-v3: SCHEMA-005 — generalReviewRef Is a Non-Empty String",
+      "category": "schema-structure"
+    },
+    {
+      "id": "TC-S-006",
+      "description": "totals $def requires exactly 8 fields and sourceRowCount is const 155",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "schema-v3: SCHEMA-006 — totals Has 8 Required Fields",
+      "category": "schema-defs"
+    },
+    {
+      "id": "TC-S-007",
+      "description": "rows is defined at report root with minItems:155 and maxItems:155",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "schema-v3: SCHEMA-007 — rows[] Is at Root Level with 155 Items",
+      "category": "schema-structure"
+    },
+    {
+      "id": "TC-S-008",
+      "description": "sourceRow $def properties contain none of the 8 catalog-only fields",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "schema-v3: SCHEMA-008 — sourceRow $def Excludes Catalog Fields",
+      "category": "schema-defs"
+    },
+    {
+      "id": "TC-S-009",
+      "description": "sourceRow $def contains exactly 10 named properties and no others",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "schema-v3: SCHEMA-009 — sourceRow $def Contains Exactly 10 Fields",
+      "category": "schema-defs"
+    },
+    {
+      "id": "TC-S-010",
+      "description": "exception $def properties do not contain a status field",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "schema-v3: SCHEMA-010 — exception $def Does Not Contain status",
+      "category": "schema-defs"
+    },
+    {
+      "id": "TC-S-011",
+      "description": "exception $def required[] contains exactly 6 fields and no others",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "schema-v3: SCHEMA-011 — exception $def required Contains 6 Fields",
+      "category": "schema-defs"
+    },
+    {
+      "id": "TC-S-012",
+      "description": "$defs does not contain navigationGroup, groupedNaSummary, or finding keys",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "schema-v3: SCHEMA-012 — Removed $defs Must Not Exist",
+      "category": "schema-defs"
+    },
+    {
+      "id": "TC-S-013",
+      "description": "Top-level $comment contains 'rows[]' and does not contain 'sourceRowValidation'",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "schema-v3: SCHEMA-013 — $comment References rows[]",
+      "category": "schema-structure"
+    },
+    {
+      "id": "TC-S-014",
+      "description": "artifactMetadata required[] matches the 9 fields in review-report.schema.json",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "schema-v3: SCHEMA-014 — artifactMetadata Shape Matches review-report.schema.json",
+      "category": "schema-defs"
+    },
+    {
+      "id": "TC-T-001",
+      "description": "Template opening 3-paragraph preamble is present and content matches original",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "template-v3: TMPL-001 — Preamble Preserved",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-T-002",
+      "description": "## JSON Field Mapping table lists exactly 9 section rows",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "template-v3: TMPL-002 — JSON Field Mapping Table Has Exactly 9 Sections",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-T-003",
+      "description": "## Required Structure skeleton shows exactly 8 named sections",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "template-v3: TMPL-003 — Required Structure Skeleton Shows 8 Sections",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-T-004",
+      "description": "## Verdict table contains both a Status row and a JSON authority row",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "template-v3: TMPL-004 — Verdict Table Includes Status and JSON Authority Rows",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-T-005",
+      "description": "## Totals table shows exactly 8 field rows including 'Total source rows (155)'",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "template-v3: TMPL-005 — Totals Table Shows 8 Fields Including sourceRowCount 155",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-T-006",
+      "description": "## General Review Reference section references single generalReviewRef field, not a handoff object",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "template-v3: TMPL-006 — General Review Reference Is a Simple Ref Section",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-T-007",
+      "description": "## Matrix section includes explicit join instruction referencing rows[].sourceId and sourceRows[].sourceId",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "template-v3: TMPL-007 — Matrix Section Shows Join Instruction",
+      "category": "template-matrix"
+    },
+    {
+      "id": "TC-T-008",
+      "description": "Matrix table header contains exactly 15 named columns in the specified order",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "template-v3: TMPL-008 — Matrix Table Has Exactly 15 Columns",
+      "category": "template-matrix"
+    },
+    {
+      "id": "TC-T-009",
+      "description": "## Matrix Rules section heading is present in the template",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "template-v3: TMPL-009 — Matrix Rules Section Is Present",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-T-010",
+      "description": "## Safe Evidence Rules section heading is present in the template",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "template-v3: TMPL-010 — Safe Evidence Rules Section Is Present",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-T-011",
+      "description": "None of the 6 obsolete section headings are present in the v3 template",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "template-v3: TMPL-011 — Obsolete Sections Must Not Exist",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-V-001",
+      "description": "Active Flow Boundary section uses rows[] and contains no reference to sourceRowValidation.rows",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "validation-rules-v3: VALRULES-001 — Active Flow Boundary References rows[]",
+      "category": "validation-rules-paths"
+    },
+    {
+      "id": "TC-V-002",
+      "description": "Source Row Coverage Validation table 'Exact report table' row references rows[], not sourceRowValidation.rows",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "validation-rules-v3: VALRULES-002 — Source Row Coverage Table Uses rows[]",
+      "category": "validation-rules-paths"
+    },
+    {
+      "id": "TC-V-003",
+      "description": "Count consistency row references totals.sourceRowCount and totals.validated; forbidden field names absent",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "validation-rules-v3: VALRULES-003 — Count Consistency Row Uses totals Fields",
+      "category": "validation-rules-paths"
+    },
+    {
+      "id": "TC-V-004",
+      "description": "Required row fields list contains exactly the 10 v3 fields; no catalog-origin fields present",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "validation-rules-v3: VALRULES-004 — Required Row Fields List Excludes Catalog Fields",
+      "category": "validation-rules-fields"
+    },
+    {
+      "id": "TC-V-005",
+      "description": "Source Row Coverage Validation table contains no 'Source-row grouping' row label",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "validation-rules-v3: VALRULES-005 — Source-Row Grouping Row Removed from Coverage Table",
+      "category": "validation-rules-structure"
+    },
+    {
+      "id": "TC-V-006",
+      "description": "File contains no line presenting guidelineText or guidelineRefs as a blocking rule",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "validation-rules-v3: VALRULES-006 — guidelineText/guidelineRefs Blocking Rule Removed",
+      "category": "validation-rules-structure"
+    },
+    {
+      "id": "TC-V-007",
+      "description": "No section heading matching 'Row-Preserving Non-Applicability' exists in the file",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "validation-rules-v3: VALRULES-007 — Row-Preserving Non-Applicability Section Removed",
+      "category": "validation-rules-structure"
+    },
+    {
+      "id": "TC-V-008",
+      "description": "Report Validation Checklist lists exactly the 13 v3 entries for review-security-report.json",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "validation-rules-v3: VALRULES-008 — Report Validation Checklist Lists 12 v3 Fields",
+      "category": "validation-rules-checklist"
+    },
+    {
+      "id": "TC-V-009",
+      "description": "Checklist contains no 'sourceRowValidation.rows' item; 'rows[] contains exactly 155 rows' item is present",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "validation-rules-v3: VALRULES-009 — Checklist Item Updated from sourceRowValidation.rows to rows[]",
+      "category": "validation-rules-checklist"
+    },
+    {
+      "id": "TC-V-010",
+      "description": "Checklist contains no items referencing groupedNaSummaries, navigationSummary, or 'grouped N/A'",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "manual-read static inspection in apply phase",
+      "spec": "validation-rules-v3: VALRULES-010 — Checklist Items for Removed Fields Must Not Exist",
+      "category": "validation-rules-checklist"
+    }
+  ]
+}

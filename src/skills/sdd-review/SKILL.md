@@ -1,0 +1,103 @@
+---
+name: sdd-review
+description: "Trigger: SDD review phase, code-review gate, review-report.md. Validate applied changes against the 96-control matrix."
+disable-model-invocation: true
+user-invocable: false
+license: MIT
+metadata:
+  author: gentleman-programming
+  version: "1.0"
+  delegate_only: true
+---
+
+> **ORCHESTRATOR GATE**: Follow `skills/_shared/executor-boundary.md`.
+> This skill is for the dedicated `sdd-review` executor only.
+
+## Language Domain Contract
+
+Follow `skills/_shared/language-domain-contract.md`.
+
+## Activation Contract
+
+Run after `sdd-apply` completes implementation work, in parallel with `sdd-review-security`. Produce durable review evidence; do not fix issues and do not replace verification, embedded secure-design authority, or security review ownership. Verification consumes both review reports after both parallel reviews complete.
+
+The orchestrator sends a structured `launch:` YAML envelope first, followed by a `## Phase Context` section. The envelope schema is defined in `skills/_shared/sdd-phase-common.md ## Launch Envelope Contract`.
+
+Required fields to extract:
+- `launch.changeName` — the change name
+- `launch.artifact_store.mode` — backend to use for reads and persistence
+- `launch.status.dependencies` — `apply: completed` must be present
+- `launch.artifacts.paths` or `launch.artifacts.refs` — refs for design, test-design, tasks, apply-progress, and changed-file context; do NOT expect content inline
+- `launch.actionContext.workspaceRoot` — absolute workspace path to inspect changed files
+- `launch.actionContext.allowedEditRoots` — read-only scope for changed-file inspection
+- `launch.skill_paths` — supplemental skills to load before work
+
+If `launch.artifact_store.mode` is absent or `launch.status.dependencies` does not show `apply: completed`, return `blocked` with `next_recommended: resolve-blockers`.
+
+## Phase Artifact Contract
+
+Common backend mechanics: follow `skills/_shared/persistence-contract.md` through **Section B** (retrieval) and **Section C** (persistence) in `skills/_shared/sdd-phase-common.md`.
+Common post-apply gates, safe-evidence rules, matrix ownership boundaries, routing defaults, and persistence/read-back expectations are defined in `skills/_shared/sdd-post-apply-gates.md`.
+
+| Concern | Contract |
+| --- | --- |
+| Required inputs | Structured status plus design with mandatory `## Secure Development Design`, mandatory `test-design`, tasks/apply progress, and changed-file context from the selected backend. Standalone `security-design.md` is legacy/read-only compatibility data only. |
+| Produced artifact | Canonical `sdd/{change-name}/review-report.json` plus derived `sdd/{change-name}/review` in Engram mode, or `openspec/changes/{change-name}/review-report.json` plus derived `openspec/changes/{change-name}/review-report.md` in OpenSpec mode. |
+| Mutates | None outside the produced review report artifact. |
+| Review catalog | Load controls only from canonical `assets/review-control-catalog.json`. `assets/review-control-catalog.md` is a derived/reference-only human view and MUST NOT be used as control authority. Every `REV-CORP-001..REV-CORP-096` Item ID and source item `1..96` must appear exactly once. |
+| Matrix contract | The matrix header must be exactly: `Item`, `Artifact/Deliverable`, `Requirement`, `Reviewer`, `Standard`, `Severity`, `Complies`, `Affected Requirement`, `Evidence Location`, `Observations/Comments`. Do not add a Category column. |
+| Complies values | `Complies` is limited to `Yes`, `No`, or `N/A`. Every `N/A` row must include Evidence Location proving irrelevance and Observations/Comments explaining scope. |
+| JSON authority | Build, validate, persist, and read back canonical `review-report.json` first. Render `review-report.md` only from that JSON using `assets/review-report.md`; Markdown never wins on conflict. |
+| Operational evidence review | Validate present/planned operational evidence for traceability, no-invention behavior, exact markers, evidence refs, unavailable-tooling notes, and unresolved gaps outside the fixed 96-control matrix. Do not add operational rows or columns to the matrix, and do not require absent readiness categories. |
+| Security boundary | Review rows may cite security guideline IDs or source IDs in `Standard`, but `design.md#secure-development-design`, canonical `review-security-report.json`, and the canonical `skills/sdd-review-security/assets/review-security-control-catalog.json` remain authoritative for classification, mandatory controls, row evidence, and exceptions. Derived security-review Markdown and `review-security-control-catalog.md` are human/audit compatibility views. |
+| Safe evidence | Evidence fields in JSON and Markdown may cite paths, section anchors, sanitized summaries, and unavailable-tooling statements only. They MUST NOT include secrets, credentials, tokens, connection strings, PAN, PII, raw logs, sensitive payloads, production IDs/production identifiers, generated bytes, or final-document-only values. |
+| Success routing | No blocking failures: `next_recommended: verify`. Non-blocking findings must remain in the report as warnings. Note: the orchestrator MUST NOT launch `sdd-verify` until both `sdd-review` AND `sdd-review-security` appear in `completedPhases`; this phase returning `verify` does not authorize the orchestrator to advance alone. |
+| Failure routing | Critical, blocking, or explicitly blocking failed controls: `next_recommended: apply`; list failed controls and affected requirements. |
+| Block routing | Follow `skills/_shared/sdd-post-apply-gates.md`; invalid catalog shape, invalid report JSON, persistence/read-back failure, Markdown generation failure, Markdown parity failure, or stale Markdown evidence routes to `resolve-blockers`. |
+
+## Decision Gates
+
+| Situation | Action |
+| --- | --- |
+| Common post-apply dependency, context, safe-evidence, or persistence gate fails | Follow `skills/_shared/sdd-post-apply-gates.md`; name the concrete missing/unsafe artifact or context. |
+| `assets/review-control-catalog.json` is missing, unreadable, not `schemaName: sdd-review.control-catalog`, not `status: canonical`, or not the loaded control source | Return `blocked`; do not fall back to Markdown. |
+| Catalog does not contain exactly 96 unique Item IDs `REV-CORP-001..REV-CORP-096` and unique source items `1..96` | Return `blocked`; do not write a passing report. |
+| Catalog or report row vocabulary uses `Complies` / `defaultComplies` outside `Yes`, `No`, `N/A` | Fix before persistence, or return `blocked`. |
+| Generated `review-report.json` does not contain exactly 96 unique `reviewMatrix[]` rows mapped one-to-one to catalog controls | Fix before persistence, or return `blocked`. |
+| Any `N/A` lacks Evidence Location proving irrelevance or Observations/Comments explaining scope | Fix before persistence, or return `blocked`. |
+| Operational evidence checks are inserted into the 96-control matrix or change its header/row count | Fix before persistence, or return `blocked`; operational evidence belongs in a separate section when applicable. |
+| Operational evidence contains unsupported invented operational values | Treat as blocking or route to `resolve-blockers`; review must not require real operational data disclosure. |
+| Report JSON verdict, blocking counts, finding counts, or `nextRecommended` disagree with matrix outcomes | Fix before persistence, or return `blocked`. |
+| `review-report.json` or generated `review-report.md` cannot be persisted and read back from the selected artifact store | Return `blocked` with `next_recommended: resolve-blockers`. |
+| Read-back Markdown is missing required sections, exact matrix header, exactly 96 rendered rows, or key facts matching JSON | Return `blocked` with `next_recommended: resolve-blockers`; stale Markdown MUST NOT be consumed downstream. |
+| Blocking or critical control fails | Persist the report with verdict `FAIL`, return `next_recommended: apply`, and identify failed controls plus affected requirements. |
+| Only non-blocking findings exist | Persist the report with verdict `PASS WITH WARNINGS` and return `next_recommended: verify`. The orchestrator MUST wait for `sdd-review-security` to also complete before launching `sdd-verify`. |
+
+## Execution Steps
+
+1. Load supplemental skills according to `skills/_shared/skill-resolver.md` and the shared SDD Section A executor minimum.
+2. Apply `skills/_shared/sdd-post-apply-gates.md` and read the selected change status plus all required inputs from the active artifact store.
+3. Read `assets/review-control-catalog.json` as the only control source. Validate catalog identity, canonical status, expected count, required fields, complete/unique IDs `REV-CORP-001..REV-CORP-096`, complete/unique source items `1..96`, allowed vocabulary, and presentation metadata. Do not load controls from `assets/review-control-catalog.md`.
+4. Inspect applied changes, task evidence, design including `design.md#secure-development-design` narrative rules, and test-design cases. Treat standalone `security-design.md` as optional legacy/archive context only.
+5. Build canonical `review-report.json` with schema/report identity, catalog refs, verdict/routing fields, input refs, runtime checks, blocking summary, evidence summary, operational evidence summary, changed-file/security handoff, exactly 96 evaluated `reviewMatrix[]` rows, validation metadata, and presentation metadata.
+5a. Add separate operational evidence fields/sections when operational considerations, planned checks, evidence, gaps, or warnings exist. Validate safe evidence, exact `Pendiente de confirmar:` / `No aplica.` markers, traceability/no-invention/unavailable-tooling notes.
+6. Classify findings as blocking or non-blocking. Blocking/critical findings prevent verify; non-blocking findings proceed as warnings. Set JSON `verdict`, `blockingFailureCount`, `nonBlockingFindingCount`, and `nextRecommended` from those outcomes.
+7. Validate `review-report.json` before Markdown rendering: required fields present, 96 unique rows, one-to-one catalog mapping, valid `Complies`, complete `N/A` evidence/rationale, failed controls tied to affected requirements, safe-evidence constraints checked, and routing/counts matching verdict.
+8. Render `review-report.md` from `review-report.json` using `assets/review-report.md`. Preserve required sections and the exact 10-column matrix header; render exactly 96 matrix rows and no Category column.
+9. Persist and read back both artifacts. Compare read-back Markdown to JSON for required sections, exact header, 96 rows, verdict/routing/counts, and representative/key matrix facts. Any persistence, read-back, or parity failure routes to `resolve-blockers`.
+10. Return the Section D envelope from `skills/_shared/sdd-phase-common.md`.
+
+## Output Contract
+
+Return the Section D envelope. Put `## Review Report Summary` in `detailed_report` with change, inputs inspected, verdict, blocking summary, evidence summary, operational evidence summary outside the 96-control matrix when applicable, JSON matrix row count, catalog validation result, report JSON validation result, Markdown parity/read-back result, safe-evidence result, security-boundary notes, unavailable runtime/coverage/lint/typecheck/format checks when relevant, next route, and the persisted JSON plus Markdown artifact paths/topics.
+
+## References
+
+- [assets/review-control-catalog.json](assets/review-control-catalog.json) — canonical static 96-control review catalog. This is the only control source for `sdd-review`.
+- [assets/review-control-catalog.md](assets/review-control-catalog.md) — derived/reference-only human view; never control authority.
+- [assets/review-report.md](assets/review-report.md) — derived `review-report.md` presentation contract generated from `review-report.json`.
+- `../sdd-review-security/assets/review-security-control-catalog.json` — canonical security guideline IDs, taxonomy, source rows, evidence model, and authority boundary.
+- `../sdd-review-security/assets/review-security-control-catalog.md` — derived human/audit view of the canonical security catalog.
+- `../_shared/skill-resolver.md` — supplemental skill loading and `skill_resolution` protocol.
+- `../_shared/sdd-phase-common.md` — phase retrieval, persistence, and return envelope.
+- `../_shared/sdd-post-apply-gates.md` — common post-apply gates, routing defaults, safe evidence, and matrix ownership boundaries.

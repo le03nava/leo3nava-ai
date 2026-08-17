@@ -1,0 +1,64 @@
+schemaName: sdd.state
+schemaVersion: 1
+changeName: operational-readiness-evidence-flow
+artifactStore: openspec
+currentPhase: complete
+completedPhases:
+  - explore
+  - propose
+  - spec
+  - design
+  - test-design
+  - tasks
+  - apply
+  - review
+  - review-security
+  - verify
+  - archive
+artifactRefs:
+  explore:
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/explore.md
+  proposal:
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/proposal.md
+  specs:
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/specs/sdd-operational-readiness-workflow/spec.md
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/specs/sdd-design-workflow/spec.md
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/specs/sdd-test-design-workflow/spec.md
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/specs/sdd-review-workflow/spec.md
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/specs/sdd-review-security-workflow/spec.md
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/specs/sdd-execution-persistence-contracts/spec.md
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/specs/sdd-security-guideline-catalog/spec.md
+  design:
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/design.md
+  testDesign:
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/test-design.md
+  tasks:
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/tasks.md
+  applyProgress:
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/tasks.md#phase-1-shared-contracts
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/tasks.md#phase-2-phase-skill-updates
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/tasks.md#phase-3-manual-operational-document-utility
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/apply-evidence.md
+  reviewReport:
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/review-report.md
+  securityReviewReport:
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/review-security-report.md
+  verifyReport:
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/verify-report.md
+  archiveReport:
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/archive-report.md
+  state:
+    - openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/state.yaml
+delivery:
+  deliveryStrategy: auto-chain
+  reviewBudgetLines: 400
+  chainStrategy: stacked-to-main
+  chainPlanRef: openspec/changes/archive/2026-07-08-operational-readiness-evidence-flow/tasks.md#suggested-work-units
+  sizeException:
+    approved: false
+    approver: null
+    rationale: null
+nextRecommended: none
+blockedReasons: []
+stateRevision: "2026-07-08T00:00:00Z-archive"
+updatedAt: "2026-07-08T00:00:00Z"

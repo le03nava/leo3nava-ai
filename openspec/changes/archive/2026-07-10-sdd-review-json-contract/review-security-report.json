@@ -1,0 +1,261 @@
+{
+  "schemaName": "sdd.review-security-report",
+  "schemaVersion": 1,
+  "changeName": "sdd-review-json-contract",
+  "artifactKind": "canonical-review-security-report",
+  "generatedAt": "2026-07-10T19:20:00-06:00",
+  "artifactStore": "openspec",
+  "verdict": "PASS WITH WARNINGS",
+  "status": "non-blocking",
+  "nextRecommended": "verify",
+  "summary": "Security review passed with one non-blocking warning carried forward for unavailable runtime/build/lint/typecheck/format/coverage tooling. Canonical general review input is review-report.json; review-report.md is derived compatibility evidence only.",
+  "sourceRefs": {
+    "secureDesign": "openspec/changes/sdd-review-json-contract/design.md#secure-development-design",
+    "testDesign": "openspec/changes/sdd-review-json-contract/test-design.md",
+    "tasks": "openspec/changes/sdd-review-json-contract/tasks.md",
+    "applyProgress": "openspec/changes/sdd-review-json-contract/apply-progress.md",
+    "generalReviewCanonical": "openspec/changes/sdd-review-json-contract/review-report.json",
+    "generalReviewDerivedMarkdown": "openspec/changes/sdd-review-json-contract/review-report.md",
+    "catalogOperationalSource": "skills/sdd-review-security/references/security-guideline-catalog.operational.json",
+    "catalogHumanView": "skills/sdd-review-security/references/security-guideline-catalog.md"
+  },
+  "generalReviewInput": {
+    "authority": "json",
+    "canonicalRef": "openspec/changes/sdd-review-json-contract/review-report.json",
+    "derivedMarkdownRef": "openspec/changes/sdd-review-json-contract/review-report.md",
+    "verdict": "PASS WITH WARNINGS",
+    "blockingFailureCount": 0,
+    "nonBlockingFindingCount": 1,
+    "nextRecommended": "review-security",
+    "reviewMatrixRows": 96,
+    "markdownParityStatus": "passed",
+    "jsonWinsOnConflict": true,
+    "notes": "Security review used JSON for verdict, routing, counts, validation metadata, and handoff facts; Markdown was read for compatibility only."
+  },
+  "secureDesignValidation": {
+    "embeddedSecureDesignPresent": true,
+    "classification": "security-impacting",
+    "changedSurface": "SDD instruction/shared-contract/OpenSpec/README/reference JSON/Markdown artifacts only; no application runtime surface was changed.",
+    "applicableCompactControls": ["SEC-FILE-001", "SEC-LOG-001"],
+    "notApplicableCompactControls": ["SEC-AUTH-001", "SEC-SESS-001", "SEC-DATA-001", "SEC-SECRET-001", "SEC-ACCESS-001", "SEC-DB-001"],
+    "exceptions": [],
+    "safeEvidencePolicyPresent": true,
+    "result": "passed"
+  },
+  "catalogValidation": {
+    "catalogSnapshotId": "security-guidelines-initial-user-snapshot-2026-06-30",
+    "compactGuidelineExpectedCount": 8,
+    "compactGuidelineValidatedCount": 8,
+    "compactCoverage": "complete",
+    "sourceRowExpectedCount": 155,
+    "sourceRowValidatedCount": 155,
+    "sourceRowCoverage": "complete",
+    "sourceRowReportMode": "summary",
+    "sourceRowFullMatrix": "omitted-audit-only",
+    "sourceRowMatrixOwner": "review-security-report when sourceRowReportMode=full-matrix",
+    "sourceRowExactOnce": true,
+    "compactMappingStatus": "complete",
+    "unknownSourceRows": 0,
+    "duplicateSourceRows": 0,
+    "missingSourceRows": 0
+  },
+  "compactControls": [
+    {
+      "guidelineId": "SEC-AUTH-001",
+      "category": "authentication",
+      "designApplies": "N/A",
+      "lifecycleStatus": "not-applicable",
+      "complies": "N/A",
+      "evidenceType": "n/a-evidence",
+      "evidenceLocation": "design.md#classification-and-changed-surface; apply-progress.md#files-changed",
+      "observations": "No login, identity proofing, credential validation, MFA, impersonation, or account recovery behavior is changed.",
+      "finding": "none",
+      "ownerPhase": "review-security",
+      "route": "verify"
+    },
+    {
+      "guidelineId": "SEC-SESS-001",
+      "category": "sessions",
+      "designApplies": "N/A",
+      "lifecycleStatus": "not-applicable",
+      "complies": "N/A",
+      "evidenceType": "n/a-evidence",
+      "evidenceLocation": "design.md#classification-and-changed-surface; apply-progress.md#files-changed",
+      "observations": "No cookies, bearer tokens, refresh flows, session lifetime, revocation, or fixation surface is changed.",
+      "finding": "none",
+      "ownerPhase": "review-security",
+      "route": "verify"
+    },
+    {
+      "guidelineId": "SEC-DATA-001",
+      "category": "sensitive-data-pan",
+      "designApplies": "N/A",
+      "lifecycleStatus": "not-applicable",
+      "complies": "N/A",
+      "evidenceType": "n/a-evidence",
+      "evidenceLocation": "design.md#restricted-data-boundary; test-design.md#security-control-coverage; review-report.json#operationalEvidenceSummary",
+      "observations": "No PAN, PII, confidential data flow, masking, storage, retention, or transmission behavior is introduced; evidence was checked for forbidden sensitive values.",
+      "finding": "none",
+      "ownerPhase": "review-security",
+      "route": "verify"
+    },
+    {
+      "guidelineId": "SEC-SECRET-001",
+      "category": "secrets",
+      "designApplies": "N/A",
+      "lifecycleStatus": "not-applicable",
+      "complies": "N/A",
+      "evidenceType": "n/a-evidence",
+      "evidenceLocation": "design.md#restricted-data-boundary; apply-progress.md#security-evidence; static artifact inspection",
+      "observations": "No secrets/config storage, rotation, credential handling, or secret values are introduced; artifact evidence only contains safe policy wording.",
+      "finding": "none",
+      "ownerPhase": "review-security",
+      "route": "verify"
+    },
+    {
+      "guidelineId": "SEC-ACCESS-001",
+      "category": "permissions-access-control",
+      "designApplies": "N/A",
+      "lifecycleStatus": "not-applicable",
+      "complies": "N/A",
+      "evidenceType": "n/a-evidence",
+      "evidenceLocation": "design.md#classification-and-changed-surface; test-design.md#source-id-coverage-baseline",
+      "observations": "No roles, ownership checks, protected resources, tenant boundaries, or authorization decisions are changed.",
+      "finding": "none",
+      "ownerPhase": "review-security",
+      "route": "verify"
+    },
+    {
+      "guidelineId": "SEC-FILE-001",
+      "category": "files",
+      "designApplies": "Yes",
+      "lifecycleStatus": "implemented",
+      "complies": "Yes",
+      "evidenceType": "static-inspection",
+      "evidenceLocation": "design.md#files-rules; apply-progress.md#files-changed; repository file-pattern inspection",
+      "observations": "Change creates/updates repository artifacts only; no arbitrary filesystem contract or Excel/Python/workbook/generated output was added.",
+      "finding": "none",
+      "ownerPhase": "verify",
+      "route": "verify"
+    },
+    {
+      "guidelineId": "SEC-DB-001",
+      "category": "database-access",
+      "designApplies": "N/A",
+      "lifecycleStatus": "not-applicable",
+      "complies": "N/A",
+      "evidenceType": "n/a-evidence",
+      "evidenceLocation": "design.md#classification-and-changed-surface; apply-progress.md#files-changed",
+      "observations": "No queries, migrations, persistence, tenant isolation, reporting data path, or database access behavior is changed.",
+      "finding": "none",
+      "ownerPhase": "review-security",
+      "route": "verify"
+    },
+    {
+      "guidelineId": "SEC-LOG-001",
+      "category": "sensitive-logging",
+      "designApplies": "Yes",
+      "lifecycleStatus": "implemented",
+      "complies": "Yes",
+      "evidenceType": "static-inspection",
+      "evidenceLocation": "design.md#sensitive-logging-rules; test-design.md#security-control-coverage; review-report.json#operationalEvidenceSummary",
+      "observations": "JSON/Markdown evidence rules forbid raw logs, sensitive payloads, secrets, PAN/PII, production identifiers, generated bytes, and final-document-only values.",
+      "finding": "none",
+      "ownerPhase": "verify",
+      "route": "verify"
+    }
+  ],
+  "sourceRowCoverageBySection": [
+    {"section": "1. Authentication", "expected": 10, "validated": 10, "blockers": 0, "warnings": 0, "notApplicable": 10, "notes": "Runtime authentication source rows are not applicable to this SDD artifact-contract change."},
+    {"section": "2. Passwords", "expected": 23, "validated": 23, "blockers": 0, "warnings": 0, "notApplicable": 23, "notes": "Runtime password/credential source rows are not applicable; safe-evidence inspection found no credential values."},
+    {"section": "3. Access and Activity Logging", "expected": 11, "validated": 11, "blockers": 0, "warnings": 0, "notApplicable": 11, "notes": "Runtime logging rows are not applicable; evidence-leakage rules were validated through SEC-LOG-001."},
+    {"section": "4. Cryptography", "expected": 8, "validated": 8, "blockers": 0, "warnings": 0, "notApplicable": 8, "notes": "No cryptography, PAN/sensitive storage, TLS, key, or random generation behavior is changed."},
+    {"section": "5. Databases", "expected": 12, "validated": 12, "blockers": 0, "warnings": 0, "notApplicable": 12, "notes": "No database connection/query/migration behavior is changed."},
+    {"section": "6. Coding", "expected": 14, "validated": 14, "blockers": 0, "warnings": 0, "notApplicable": 14, "notes": "Runtime coding-source rows are not applicable; general review covered the 96-control matrix separately."},
+    {"section": "7. Session Management", "expected": 13, "validated": 13, "blockers": 0, "warnings": 0, "notApplicable": 13, "notes": "No session or token lifecycle behavior is changed."},
+    {"section": "8. Error Handling", "expected": 5, "validated": 5, "blockers": 0, "warnings": 0, "notApplicable": 5, "notes": "Runtime error-handling rows are not applicable; raw log/payload leakage was checked as evidence hygiene."},
+    {"section": "9. File Handling", "expected": 12, "validated": 12, "blockers": 0, "warnings": 0, "notApplicable": 12, "notes": "Runtime upload/download/storage rows are not applicable; repository-artifact file scope was validated through SEC-FILE-001."},
+    {"section": "10. Memory Management", "expected": 6, "validated": 6, "blockers": 0, "warnings": 0, "notApplicable": 6, "notes": "No runtime memory-management behavior is changed."},
+    {"section": "11. Input Validation", "expected": 16, "validated": 16, "blockers": 0, "warnings": 0, "notApplicable": 16, "notes": "No runtime input/API/database validation path is changed."},
+    {"section": "12. Output Encoding", "expected": 5, "validated": 5, "blockers": 0, "warnings": 0, "notApplicable": 5, "notes": "No runtime output encoding or SQL/XML/LDAP output behavior is changed."},
+    {"section": "13. Data Protection", "expected": 9, "validated": 9, "blockers": 0, "warnings": 0, "notApplicable": 9, "notes": "No PAN/PII/confidential runtime data flow is changed."},
+    {"section": "14. Access Control", "expected": 9, "validated": 9, "blockers": 0, "warnings": 0, "notApplicable": 9, "notes": "No runtime protected-resource authorization behavior is changed."},
+    {"section": "15. PAN — Primary Account Number", "expected": 2, "validated": 2, "blockers": 0, "warnings": 0, "notApplicable": 2, "notes": "No PAN processing, storage, display, or transmission is changed."}
+  ],
+  "findings": {
+    "blockers": [],
+    "warnings": [
+      {
+        "id": "WARN-TOOLING-UNAVAILABLE",
+        "severity": "WARNING",
+        "blocker": false,
+        "message": "Runtime/build/lint/typecheck/format/coverage tooling is unavailable; static/manual artifact inspection is the only available evidence path.",
+        "ownerPhase": "verify",
+        "route": "verify",
+        "evidence": ["openspec/config.yaml#testing", "review-report.json#runtimeChecks", "apply-progress.md#tooling-availability"],
+        "carryForward": true
+      }
+    ],
+    "sourceRowWarnings": [],
+    "missingEvidenceRows": [],
+    "unsafeEvidenceRejections": []
+  },
+  "counts": {
+    "blockerCount": 0,
+    "warningCount": 1,
+    "sourceRowBlockerCount": 0,
+    "sourceRowWarningCount": 0,
+    "compactControlBlockerCount": 0,
+    "compactControlWarningCount": 0,
+    "approvedExceptionCount": 0,
+    "unsafeEvidenceRejectionCount": 0
+  },
+  "safeEvidenceValidation": {
+    "result": "passed",
+    "leakageVerdict": "no-unsafe-evidence-found",
+    "acceptedEvidenceKinds": ["repository-relative paths", "section anchors", "sanitized summaries", "unavailable-tooling notes"],
+    "forbiddenEvidenceFound": [],
+    "placeholderSafety": {
+      "pendingToConfirmPresent": false,
+      "noAplicaPresent": true,
+      "notes": "No aplica. appeared only as safe placeholder-policy text in test-design.md and was not used to hide mandatory evidence."
+    },
+    "fileScopeBoundary": "passed"
+  },
+  "warningCarryForward": [
+    {
+      "id": "WARN-TOOLING-UNAVAILABLE",
+      "message": "Unavailable runtime/build/lint/typecheck/format/coverage tooling must remain visible to verify and archive; do not treat unavailable commands as passing evidence.",
+      "ownerPhase": "verify",
+      "route": "verify",
+      "evidence": ["openspec/config.yaml#testing", "review-report.json#runtimeChecks", "review-report.md#evidence-summary"]
+    }
+  ],
+  "exceptions": [],
+  "artifactParityAndReadBack": {
+    "canonicalJson": {
+      "ref": "openspec/changes/sdd-review-json-contract/review-security-report.json",
+      "authority": "canonical",
+      "persisted": true,
+      "readable": true,
+      "readBackStatus": "passed"
+    },
+    "derivedMarkdown": {
+      "ref": "openspec/changes/sdd-review-json-contract/review-security-report.md",
+      "authority": "derived",
+      "persisted": true,
+      "readable": true,
+      "readBackStatus": "passed",
+      "generatedFromJsonFacts": true
+    },
+    "parityChecks": {
+      "schemaIdentity": true,
+      "changeName": true,
+      "verdict": true,
+      "nextRecommended": true,
+      "sourceRowCounts": true,
+      "blockerWarningCounts": true,
+      "warningCarryForward": true
+    }
+  }
+}

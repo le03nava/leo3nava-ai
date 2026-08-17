@@ -1,0 +1,119 @@
+schemaName: sdd.state
+schemaVersion: 1
+changeName: sdd-review-json-contract
+artifactStore: openspec
+currentPhase: complete
+completedPhases:
+  - explore
+  - propose
+  - spec
+  - design
+  - test-design
+  - tasks
+  - apply
+  - review
+  - review-security
+  - verify
+  - archive
+artifactRefs:
+  explore:
+    - type: explore
+      mode: openspec
+      ref: openspec/changes/archive/2026-07-10-sdd-review-json-contract/explore.md
+      persisted: true
+      readable: true
+  proposal:
+    - type: proposal
+      mode: openspec
+      ref: openspec/changes/archive/2026-07-10-sdd-review-json-contract/proposal.md
+      persisted: true
+      readable: true
+  specs:
+    - type: spec
+      mode: openspec
+      ref: openspec/changes/archive/2026-07-10-sdd-review-json-contract/specs/sdd-review-workflow/spec.md
+      persisted: true
+      readable: true
+  securityApplicability: []
+  design:
+    - type: design
+      mode: openspec
+      ref: openspec/changes/archive/2026-07-10-sdd-review-json-contract/design.md
+      persisted: true
+      readable: true
+  securityDesign: []
+  testDesign:
+    - type: test-design
+      mode: openspec
+      ref: openspec/changes/archive/2026-07-10-sdd-review-json-contract/test-design.md
+      persisted: true
+      readable: true
+  tasks:
+    - type: tasks
+      mode: openspec
+      ref: openspec/changes/archive/2026-07-10-sdd-review-json-contract/tasks.md
+      persisted: true
+      readable: true
+  applyProgress:
+    - type: apply-progress
+      mode: openspec
+      ref: openspec/changes/archive/2026-07-10-sdd-review-json-contract/apply-progress.md
+      persisted: true
+      readable: true
+  reviewReport:
+    - type: review-report
+      mode: openspec
+      ref: openspec/changes/archive/2026-07-10-sdd-review-json-contract/review-report.json
+      persisted: true
+      readable: true
+      authority: canonical
+    - type: review-report
+      mode: openspec
+      ref: openspec/changes/archive/2026-07-10-sdd-review-json-contract/review-report.md
+      persisted: true
+      readable: true
+      authority: derived
+  securityReviewReport:
+    - type: review-security-report
+      mode: openspec
+      ref: openspec/changes/archive/2026-07-10-sdd-review-json-contract/review-security-report.json
+      persisted: true
+      readable: true
+      authority: canonical
+    - type: review-security-report
+      mode: openspec
+      ref: openspec/changes/archive/2026-07-10-sdd-review-json-contract/review-security-report.md
+      persisted: true
+      readable: true
+      authority: derived
+  verifyReport:
+    - type: verify-report
+      mode: openspec
+      ref: openspec/changes/archive/2026-07-10-sdd-review-json-contract/verify-report.md
+      persisted: true
+      readable: true
+  archiveReport:
+    - type: archive-report
+      mode: openspec
+      ref: openspec/changes/archive/2026-07-10-sdd-review-json-contract/archive-report.md
+      persisted: true
+      readable: true
+  state:
+    - type: state
+      mode: openspec
+      ref: openspec/changes/archive/2026-07-10-sdd-review-json-contract/state.yaml
+      persisted: true
+      readable: true
+delivery:
+  deliveryStrategy: auto-chain
+  reviewBudgetLines: null
+  chainStrategy: stacked-to-main
+  chainPlanRef: openspec/changes/archive/2026-07-10-sdd-review-json-contract/tasks.md#suggested-work-units
+  sizeException:
+    approved: false
+    approver: null
+    rationale: null
+nextRecommended: none
+blockedReasons: []
+stateRevision: "2026-07-10T20:15:00.0000000-06:00"
+updatedAt: "2026-07-10T20:15:00.0000000-06:00"

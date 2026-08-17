@@ -1,0 +1,60 @@
+schemaName: sdd.state
+schemaVersion: 1
+changeName: add-sdd-review-phase
+artifactStore: openspec
+currentPhase: archive
+completedPhases:
+  - explore
+  - propose
+  - spec
+  - security-applicability
+  - design
+  - test-design
+  - tasks
+  - apply
+  - review
+  - verify
+  - archive
+artifactRefs:
+  explore:
+    - openspec/changes/archive/2026-07-02-add-sdd-review-phase/explore.md
+  proposal:
+    - openspec/changes/archive/2026-07-02-add-sdd-review-phase/proposal.md
+  specs:
+    - openspec/changes/archive/2026-07-02-add-sdd-review-phase/specs/sdd-review-workflow/spec.md
+    - openspec/changes/archive/2026-07-02-add-sdd-review-phase/specs/sdd-execution-persistence-contracts/spec.md
+    - openspec/changes/archive/2026-07-02-add-sdd-review-phase/specs/sdd-security-guideline-catalog/spec.md
+  securityApplicability:
+    - openspec/changes/archive/2026-07-02-add-sdd-review-phase/security-applicability.md
+  design:
+    - openspec/changes/archive/2026-07-02-add-sdd-review-phase/design.md
+  securityDesign: []
+  testDesign:
+    - openspec/changes/archive/2026-07-02-add-sdd-review-phase/test-design.md
+  tasks:
+    - openspec/changes/archive/2026-07-02-add-sdd-review-phase/tasks.md
+  applyProgress:
+    - openspec/changes/archive/2026-07-02-add-sdd-review-phase/tasks.md#phase-1-shared-contracts-pr-1
+    - openspec/changes/archive/2026-07-02-add-sdd-review-phase/tasks.md#phase-2-review-executor-and-catalog-pr-2
+    - openspec/changes/archive/2026-07-02-add-sdd-review-phase/tasks.md#phase-3-workflow-integration-and-evidence-pr-3
+  reviewReport:
+    - openspec/changes/archive/2026-07-02-add-sdd-review-phase/review-report.md
+  verifyReport:
+    - openspec/changes/archive/2026-07-02-add-sdd-review-phase/verify-report.md
+  archiveReport:
+    - openspec/changes/archive/2026-07-02-add-sdd-review-phase/archive-report.md
+  state:
+    - openspec/changes/archive/2026-07-02-add-sdd-review-phase/state.yaml
+delivery:
+  deliveryStrategy: auto-chain
+  reviewBudgetLines: 400
+  chainStrategy: stacked-to-main
+  chainPlanRef: null
+  sizeException:
+    approved: false
+    approver: null
+    rationale: null
+nextRecommended: none
+blockedReasons: []
+stateRevision: 2026-07-02T14:35:00-06:00
+updatedAt: 2026-07-02T14:35:00-06:00

@@ -1,0 +1,10 @@
+{
+  "archivedFrom": "openspec/changes/test-cases-json/test-cases.json",
+  "note": "Canonical test-cases.json persisted at verify time; full content intentionally preserved in archive folder for auditability. Original file had 32 cases and final statuses verified.",
+  "summary": {
+    "totalCases": 32,
+    "verified": 32,
+    "mandatory": 31,
+    "nonMandatory": 1
+  }
+}

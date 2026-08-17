@@ -1,0 +1,66 @@
+schemaName: sdd.state
+schemaVersion: 1
+changeName: remove-sdd-security-applicability-executor
+artifactStore: openspec
+currentPhase: complete
+completedPhases:
+  - explore
+  - propose
+  - spec
+  - design
+  - security-design
+  - test-design
+  - tasks
+  - apply
+  - review
+  - review-security
+  - verify
+  - archive
+artifactRefs:
+  explore:
+    - openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/explore.md
+  proposal:
+    - openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/proposal.md
+  specs:
+    - openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/specs/sdd-security-applicability-workflow/spec.md
+    - openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/specs/sdd-execution-persistence-contracts/spec.md
+    - openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/specs/sdd-security-design-workflow/spec.md
+    - openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/specs/sdd-review-workflow/spec.md
+  securityApplicability: []
+  design:
+    - openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/design.md
+  securityDesign:
+    - openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/security-design.md
+  testDesign:
+    - openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/test-design.md
+  tasks:
+    - openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/tasks.md
+  applyProgress:
+    - openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/apply-progress.md
+  reviewReport:
+    - openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/review-report.md
+  securityReviewReport:
+    - openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/review-security-report.md
+  verifyReport:
+    - openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/verify-report.md
+  archiveReport:
+    - openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/archive-report.md
+  state:
+    - openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/state.yaml
+delivery:
+  deliveryStrategy: auto-chain
+  reviewBudgetLines: 400
+  chainStrategy: stacked-to-main
+  chainPlanRef: openspec/changes/archive/2026-07-03-remove-sdd-security-applicability-executor/tasks.md#suggested-work-units
+  sizeException:
+    approved: false
+    approver: null
+    rationale: null
+nextRecommended: none
+blockedReasons: []
+workspaceContext:
+  dirtyWorkspaceApproved: true
+  approvedBy: user
+  rationale: "User confirmed the current dirty workspace is the latest valid version and apply should continue on top of it."
+stateRevision: "2026-07-03T00:00:00Z-archive"
+updatedAt: "2026-07-03T00:00:00Z"

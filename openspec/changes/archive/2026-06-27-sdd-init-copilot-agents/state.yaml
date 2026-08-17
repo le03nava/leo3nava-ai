@@ -1,0 +1,44 @@
+schemaName: sdd.state
+schemaVersion: 1
+changeName: sdd-init-copilot-agents
+artifactStore: openspec
+currentPhase: complete
+completedPhases:
+  - propose
+  - spec
+  - design
+  - tasks
+  - apply
+  - verify
+  - archive
+artifactRefs:
+  explore: []
+  proposal:
+    - openspec/changes/sdd-init-copilot-agents/proposal.md
+  specs:
+    - openspec/changes/sdd-init-copilot-agents/specs/opencode-prompt-sync/spec.md
+  design:
+    - openspec/changes/sdd-init-copilot-agents/design.md
+  tasks:
+    - openspec/changes/sdd-init-copilot-agents/tasks.md
+  applyProgress:
+    - openspec/changes/sdd-init-copilot-agents/tasks.md
+  verifyReport:
+    - openspec/changes/sdd-init-copilot-agents/verify-report.md
+  archiveReport:
+    - openspec/changes/archive/2026-06-27-sdd-init-copilot-agents/archive-report.md
+  state:
+    - openspec/changes/archive/2026-06-27-sdd-init-copilot-agents/state.yaml
+delivery:
+  deliveryStrategy: auto-chain
+  reviewBudgetLines: 400
+  chainStrategy: stacked-to-main
+  chainPlanRef: null
+  sizeException:
+    approved: false
+    approver: null
+    rationale: null
+nextRecommended: none
+blockedReasons: []
+stateRevision: "2026-06-27T00:00:06Z-archive"
+updatedAt: "2026-06-27T00:00:06Z"

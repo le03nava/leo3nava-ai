@@ -1,0 +1,62 @@
+schemaName: sdd.state
+schemaVersion: 1
+changeName: harden-security-applicability-contract
+artifactStore: openspec
+currentPhase: complete
+completedPhases:
+  - explore
+  - propose
+  - spec
+  - security-applicability
+  - design
+  - security-design
+  - test-design
+  - tasks
+  - apply
+  - review
+  - verify
+  - archive
+artifactRefs:
+  explore:
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/explore.md
+  proposal:
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/proposal.md
+  specs:
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/specs/sdd-security-applicability-workflow/spec.md
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/specs/sdd-security-guideline-catalog/spec.md
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/specs/sdd-security-design-workflow/spec.md
+  securityApplicability:
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/security-applicability.md
+  design:
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/design.md
+  securityDesign:
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/security-design.md
+  testDesign:
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/test-design.md
+  tasks:
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/tasks.md
+  applyProgress:
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/tasks.md#phase-1-shared-contract-and-applicability-template-pr-1
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/tasks.md#phase-2-catalog-source-coverage-and-severity-pr-2
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/tasks.md#phase-3-validator-downstream-compatibility-and-evidence-pr-3
+  reviewReport:
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/review-report.md
+  verifyReport:
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/verify-report.md
+  archiveReport:
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/archive-report.md
+  state:
+    - openspec/changes/archive/2026-07-03-harden-security-applicability-contract/state.yaml
+delivery:
+  deliveryStrategy: auto-chain
+  reviewBudgetLines: 400
+  chainStrategy: stacked-to-main
+  chainPlanRef: openspec/changes/archive/2026-07-03-harden-security-applicability-contract/tasks.md#suggested-work-units
+  sizeException:
+    approved: false
+    approver: null
+    rationale: null
+nextRecommended: none
+blockedReasons: []
+stateRevision: 2026-07-03T00:00:00Z
+updatedAt: 2026-07-03T00:00:00Z

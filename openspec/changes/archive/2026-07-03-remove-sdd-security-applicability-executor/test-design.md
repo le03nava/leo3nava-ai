@@ -1,0 +1,74 @@
+# Test Design: Remove SDD Security Applicability Executor
+
+## Overview
+
+This change removes the repo-local launchable `sdd-security-applicability` executor surface while preserving legacy `security-applicability.md` artifacts as readable archive/data evidence only. The repository has no configured runtime test runner, coverage tool, linter, type checker, formatter, or build command; verification must rely on static read-back, targeted text searches, diff inspection, and manual artifact review. Unavailable runtime tooling is a constraint and MUST NOT be reported as passing evidence.
+
+## Inputs
+
+| Artifact | Reference | Used For |
+| --- | --- | --- |
+| Proposal | `openspec/changes/remove-sdd-security-applicability-executor/proposal.md` | Scope, non-goals, risks, rollback plan, and success criteria for removing the executor/skill while preserving archive compatibility. |
+| Spec | `openspec/changes/remove-sdd-security-applicability-executor/specs/sdd-security-applicability-workflow/spec.md` | Requirements that new changes exclude the applicability phase, do not produce `security-applicability.md`, and keep legacy artifacts read-only. |
+| Spec | `openspec/changes/remove-sdd-security-applicability-executor/specs/sdd-execution-persistence-contracts/spec.md` | Requirements that legacy tokens/refs remain data-only and never map to runnable successors or active dependencies. |
+| Spec | `openspec/changes/remove-sdd-security-applicability-executor/specs/sdd-security-design-workflow/spec.md` | Requirements that `security-design.md` owns new-change classification and does not depend on the retired executor or artifact. |
+| Spec | `openspec/changes/remove-sdd-security-applicability-executor/specs/sdd-review-workflow/spec.md` | Requirements that review treats missing `security-applicability.md` as non-blocking for new changes and keeps security design/review authoritative. |
+| Security Applicability | Not produced for this change | New changes MUST NOT create `security-applicability.md`; absence is expected and is not no-impact proof. |
+| Design | `openspec/changes/remove-sdd-security-applicability-executor/design.md` | Architecture decisions, affected files/contracts, routing/data-flow expectations, archive preservation constraints, and testing strategy. |
+| Security Design | `openspec/changes/remove-sdd-security-applicability-executor/security-design.md` | Governance controls `SDD-GOV-001` through `SDD-GOV-003`, N/A runtime category rationale, residual risks, and evidence obligations. |
+| Testing Capabilities | `openspec/config.yaml` `testing` section | Confirms strict TDD is false and no runtime test runner, coverage, linter, type checker, formatter, or build command is configured. |
+
+## Test Cases
+
+| ID | Source | Check | Type | Severity | Expected Evidence | Notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| TD-001 | Spec: `sdd-security-applicability-workflow` / Scenario: New change excludes applicability phase | Inspect active DAG/routing contracts and orchestrator wording to verify routing after specs goes to design/security-design path and `sdd-security-applicability` is not listed as an active phase. | static | mandatory | Diff/read-back evidence from active contract files showing no active DAG entry, successor, or launch token for `security-applicability`. | Covers active contracts no longer mapping applicability to runnable `sdd-security-applicability`. |
+| TD-002 | Spec: `sdd-security-applicability-workflow` / Scenario: Executor and skill are absent | Verify repo-local launchable files `agents/sdd/sdd-security-applicability.md` and `skills/sdd-security-applicability/SKILL.md` are deleted and no replacement launchable executor/skill is added. | static | mandatory | Filesystem/read-back evidence that both launch sources are absent; changed-file diff shows deletion rather than deprecation-only edits. | Global `%USERPROFILE%` stale copies are explicitly out of scope and must not be claimed as removed. |
+| TD-003 | Spec: `sdd-security-applicability-workflow` / Scenario: Artifact is not produced | Verify this change folder does not contain `security-applicability.md` and new-change artifact refs do not add `securityApplicability` entries. | static | mandatory | Directory listing/read-back of `openspec/changes/remove-sdd-security-applicability-executor/` with no `security-applicability.md`; state/status evidence keeps `artifactRefs.securityApplicability` empty or legacy-only. | Absence of applicability is expected; it does not replace required `security-design.md`. |
+| TD-004 | Spec: `sdd-security-applicability-workflow` / Scenario: Legacy artifact is read-only | Inspect shared contracts and OpenSpec conventions to confirm legacy `security-applicability.md` paths remain readable as historical data without rerun requirements. | static | mandatory | Text evidence in persistence/status/OpenSpec/security contracts labeling applicability refs as legacy, read-only, data, archive, or compatibility evidence. | Prevents breaking archives while removing launch authority. |
+| TD-005 | Spec: `sdd-execution-persistence-contracts` / Scenario: Legacy token is not launchable | Search active resolver/status/routing contracts for mappings from `security-applicability` to `sdd-security-applicability` or any runnable successor and verify none remain. | static | mandatory | Targeted text-search evidence that legacy token mentions are scoped to data/readability only and do not normalize into an executor, phase launch, or required successor. | Covers active contracts no longer mapping legacy tokens to launchable behavior. |
+| TD-006 | Spec: `sdd-execution-persistence-contracts` / Scenario: Legacy refs are preserved as data | Verify persisted `securityApplicability` state/status fields may remain as compatibility refs but are not active dependencies, produced artifacts, or phase-launch inputs. | static | mandatory | Read-back evidence from state/status/persistence contracts showing `securityApplicability` is legacy/read-only data and active dependencies use `securityDesign`. | Archive compatibility must survive without weakening mandatory security-design. |
+| TD-007 | Spec: `sdd-security-design-workflow` / Scenarios: Direct classification, Retired executor is not consulted, Missing applicability is not no-impact proof | Verify `security-design.md` remains mandatory for new changes, consumes proposal/specs/design directly, and does not require `security-applicability.md` or `sdd-security-applicability`. | static | mandatory | Read-back evidence from security design skill/shared security contract/specs that classification is owned by `security-design.md`; absence of applicability is not treated as proof. | Required because the change moves classification authority. |
+| TD-008 | Spec: `sdd-security-design-workflow` / Scenario: Invalid no-impact does not silently skip | Verify no-impact handling remains row-level inside `security-design.md`, not a skip based on missing or retired applicability artifacts. | manual | mandatory | Manual review notes citing category/guideline rows, N/A rationale, validation metadata, and routing to `test-design` in `security-design.md`. | This change is governance security-impacting, not runtime security-impacting. |
+| TD-009 | Spec: `sdd-review-workflow` / Scenario: Legacy applicability is optional evidence | Inspect review templates/contracts to confirm missing `security-applicability.md` is not a default blocker for new changes and any present applicability artifact is optional legacy/archive evidence. | static | mandatory | Diff/read-back evidence from review workflow contract/template removing applicability as a required new-change input or explicitly marking it legacy/optional. | Keeps review aligned with new security-design authority. |
+| TD-010 | Spec: `sdd-review-workflow` / Scenario: Applicability does not replace security evidence | Verify review/security review contracts require `security-design.md` and security review evidence rather than allowing legacy applicability to displace them. | static | mandatory | Read-back evidence from review/security contracts that `security-design.md` and security review remain authorities. | Prevents accidental downgrade of security evidence. |
+| TD-011 | Design: Archive compatibility and out-of-scope archive edits | Verify `openspec/changes/archive/**` is not modified by the implementation. | static | mandatory | Git diff/file-status evidence showing no changed files under `openspec/changes/archive/**`. | Archive folders are audit trails and must remain untouched. |
+| TD-012 | Design: Preserve archive-only validation | Inspect `scripts/validate_security_applicability.ps1` and active contracts to confirm the validator remains archive-only and is not used as a new-change routing gate. | static | mandatory | Read-back/text-search evidence that validator references are archive-only, legacy, or compatibility-scoped; no new-change dependency invokes it as a blocker. | The validator may remain because old archives still need readability checks. |
+| TD-013 | Design: Stale global copy caveat | Verify docs/contracts state repository-local removal only and do not claim stale global `%USERPROFILE%` opencode copies are deleted. | manual | mandatory | Manual diff review showing global destination cleanup is documented as out of scope or a caveat. | Prevents overclaiming behavior outside the repo. |
+| TD-014 | Security Design: `SDD-GOV-003` evidence hygiene | Inspect generated and changed SDD artifacts for secrets, credentials, production identifiers, sensitive runtime data, copied environment values, or unnecessary operational details. | manual | mandatory | Manual/static artifact inspection notes; changed artifacts contain only repo paths, workflow terms, catalog IDs, and non-sensitive rationale. | Generated artifacts must contain no secrets/sensitive runtime data. |
+| TD-015 | Testing capabilities from `openspec/config.yaml` | Verify verification output reports unavailable runtime tools explicitly and does not treat missing test/lint/typecheck/format/build commands as passed checks. | manual | mandatory | Verification plan/report cites unavailable tooling as unavailable evidence, not pass evidence. | Applies to all downstream verify evidence for this repository. |
+| TD-016 | Proposal success criteria and rollback | Confirm implementation evidence maps to all proposal success criteria and preserves rollback by normal commit revert with archives untouched. | manual | non-mandatory | Reviewer checklist or verify notes tying each success criterion to TD-001 through TD-015. | Advisory traceability check; mandatory criteria are covered by specific cases above. |
+
+## Security Control Coverage
+
+| Guideline ID | Required Control | Mandatory | Planned Check or Evidence | Status | Exception |
+| --- | --- | --- | --- | --- | --- |
+| `SDD-GOV-001` | New changes must use `security-design.md` as mandatory classification authority and must not require or recreate `security-applicability.md` for classification. | Yes | Covered by TD-001, TD-003, TD-005, TD-007, and TD-008. | covered | None |
+| `SDD-GOV-002` | Legacy `security-applicability.md` artifacts and state refs remain readable as archive data only and must not weaken mandatory `security-design.md` or security review obligations. | Yes | Covered by TD-004, TD-006, TD-009, TD-010, TD-011, and TD-012. | covered | None |
+| `SDD-GOV-003` | SDD artifacts must avoid embedding secrets, credentials, production identifiers, sensitive internal data, or unnecessary operational details. | Yes | Covered by TD-014 and reinforced by TD-015 verification reporting expectations. | covered | None |
+| `SEC-AUTH-001` | Authentication controls. | Yes when applicable | Runtime category is not applicable per `security-design.md`; verify no authentication behavior changes are introduced by contract-only edits. | not-applicable | None |
+| `SEC-SESS-001` | Session/token controls. | Yes when applicable | Runtime category is not applicable per `security-design.md`; verify no session, cookie, or token behavior changes are introduced. | not-applicable | None |
+| `SEC-DATA-001` | Sensitive data/PAN controls. | Yes when applicable | Runtime category is not applicable per `security-design.md`; TD-014 covers artifact hygiene for sensitive examples. | not-applicable | None |
+| `SEC-SECRET-001` | Secret handling controls. | Yes when applicable | Runtime secret handling is not applicable; TD-014 covers generated artifact secret hygiene. | not-applicable | None |
+| `SEC-ACCESS-001` | Permissions/access-control controls. | Yes when applicable | Runtime category is not applicable per `security-design.md`; verify no authorization or privilege behavior changes are introduced. | not-applicable | None |
+| `SEC-FILE-001` | Runtime file handling controls. | Yes when applicable | Runtime category is not applicable per `security-design.md`; archive-folder preservation is covered by TD-011. | not-applicable | None |
+| `SEC-DB-001` | Database access controls. | Yes when applicable | Runtime category is not applicable per `security-design.md`; verify no database/query/migration behavior changes are introduced. | not-applicable | None |
+| `SEC-LOG-001` | Sensitive logging controls. | Yes when applicable | Runtime logging is not applicable; TD-014 covers generated artifact evidence hygiene. | not-applicable | None |
+
+## No-Impact Assessment
+
+Not applicable. This change has behavior and testability impact at the SDD workflow-contract level because it removes launchable executor/skill sources, changes active routing semantics, and preserves legacy artifact readability. It is not runtime application security-impacting, but mandatory static/manual governance checks are still required.
+
+## Evidence Expectations
+
+- Mandatory cases require implementation, execution of static/manual review steps, evidence capture, or a justified skip before verification can pass.
+- Non-mandatory cases should be reported as warnings when uncovered, but they do not block verification by themselves.
+- Static checks should cite changed files, directory listings, targeted text-search results, and read-back snippets from active contracts or specs.
+- Manual checks should cite the reviewed artifact paths and the specific conclusion, especially for legacy/read-only wording and secret/sensitive-data hygiene.
+- Runtime tests, linters, type checkers, formatters, build commands, and coverage commands are unavailable in this repository and MUST be reported as unavailable evidence, not treated as passed checks.
+- `security-applicability.md` MUST NOT be created for this change; its absence is expected and must be reported separately from the required presence of `security-design.md`.
+- Archive compatibility evidence must preserve old archives without editing `openspec/changes/archive/**`.
+
+## Open Questions
+
+None.

@@ -1,0 +1,65 @@
+schemaName: sdd.state
+schemaVersion: 1
+changeName: 2026-07-11-test-cases-json
+artifactStore: openspec
+currentPhase: archived
+completedPhases:
+  - propose
+  - spec
+  - design
+  - test-design
+  - tasks
+  - apply
+  - review
+  - review-security
+  - verify
+  - archive
+artifactRefs:
+  proposal:
+    - ref: openspec/changes/archive/2026-07-11-test-cases-json/proposal.md
+      readable: true
+  specs:
+    - ref: openspec/changes/archive/2026-07-11-test-cases-json/specs/test-cases-json-lifecycle/spec.md
+      readable: true
+    - ref: openspec/specs/sdd-test-design-workflow/spec.md
+      readable: true
+    - ref: openspec/specs/sdd-execution-persistence-contracts/spec.md
+      readable: true
+  design:
+    - ref: openspec/changes/archive/2026-07-11-test-cases-json/design.md
+      readable: true
+  testDesign:
+    - ref: openspec/changes/archive/2026-07-11-test-cases-json/test-design.md
+      readable: true
+  testCases:
+    - ref: openspec/changes/archive/2026-07-11-test-cases-json/test-cases.json
+      readable: true
+  tasks:
+    - ref: openspec/changes/archive/2026-07-11-test-cases-json/tasks.md
+      readable: true
+  reviewReport:
+    - ref: openspec/changes/archive/2026-07-11-test-cases-json/review-report.json
+      authority: canonical
+      readable: true
+  securityReviewReport:
+    - ref: openspec/changes/archive/2026-07-11-test-cases-json/review-security-report.json
+      authority: canonical
+      readable: true
+  verifyReport:
+    - ref: openspec/changes/archive/2026-07-11-test-cases-json/verify-report.md
+      readable: true
+  archiveReport:
+    - ref: openspec/changes/archive/2026-07-11-test-cases-json/archive-report.md
+      readable: true
+  state:
+    - ref: openspec/changes/archive/2026-07-11-test-cases-json/state.yaml
+      readable: true
+delivery:
+  deliveryStrategy: auto-chain
+  reviewBudgetLines: 400
+  chainStrategy: stacked-to-main
+  chainPlanRef: null
+nextRecommended: none
+blockedReasons: []
+stateRevision: 1
+updatedAt: "2026-07-11T18:45:00Z"

@@ -1,0 +1,87 @@
+schemaName: sdd.state
+schemaVersion: 1
+changeName: project-conventions-skill
+artifactStore: openspec
+currentPhase: complete
+completedPhases:
+  - explore
+  - proposal
+  - spec
+  - design
+  - test-design
+  - tasks
+  - apply
+  - review
+  - review-security
+  - verify
+  - archive
+artifactRefs:
+  proposal:
+    - ref: openspec/changes/archive/2026-07-11-project-conventions-skill/proposal.md
+      persisted: true
+      readable: true
+  spec:
+    - ref: openspec/changes/archive/2026-07-11-project-conventions-skill/spec.md
+      persisted: true
+      readable: true
+  design:
+    - ref: openspec/changes/archive/2026-07-11-project-conventions-skill/design.md
+      persisted: true
+      readable: true
+  testDesign:
+    - ref: openspec/changes/archive/2026-07-11-project-conventions-skill/test-design.md
+      persisted: true
+      readable: true
+  tasks:
+    - ref: openspec/changes/archive/2026-07-11-project-conventions-skill/tasks.md
+      persisted: true
+      readable: true
+  applyProgress:
+    - ref: openspec/changes/archive/2026-07-11-project-conventions-skill/apply-progress.md
+      persisted: true
+      readable: true
+  reviewReport:
+    - ref: openspec/changes/archive/2026-07-11-project-conventions-skill/review-report.json
+      authority: canonical
+      persisted: true
+      readable: true
+    - ref: openspec/changes/archive/2026-07-11-project-conventions-skill/review-report.md
+      authority: derived
+      persisted: true
+      readable: true
+  securityReviewReport:
+    - ref: openspec/changes/archive/2026-07-11-project-conventions-skill/review-security-report.json
+      authority: canonical
+      persisted: true
+      readable: true
+    - ref: openspec/changes/archive/2026-07-11-project-conventions-skill/review-security-report.md
+      authority: derived
+      persisted: true
+      readable: true
+  verifyReport:
+    - ref: openspec/changes/archive/2026-07-11-project-conventions-skill/verify-report.md
+      persisted: true
+      readable: true
+  archiveReport:
+    - ref: openspec/changes/archive/2026-07-11-project-conventions-skill/archive-report.md
+      persisted: true
+      readable: true
+  state:
+    - ref: openspec/changes/archive/2026-07-11-project-conventions-skill/state.yaml
+      persisted: true
+      readable: true
+delivery:
+  deliveryStrategy: auto-chain
+  reviewBudgetLines: 400
+  chainStrategy: stacked-to-main
+  chainPlanRef: null
+  sizeException:
+    approved: false
+    approver: null
+    rationale: null
+nextRecommended: none
+blockedReasons: []
+archiveStatus: archived
+archiveDestination: openspec/changes/archive/2026-07-11-project-conventions-skill/
+stateRevision: 2026-07-11T12:30:00Z
+updatedAt: 2026-07-11T12:30:00Z

@@ -1,0 +1,90 @@
+schemaName: sdd.state
+schemaVersion: 1
+changeName: source-row-first-security-review
+artifactStore: openspec
+currentPhase: complete
+completedPhases:
+  - explore
+  - proposal
+  - spec
+  - design
+  - test-design
+  - tasks
+  - apply
+  - review
+  - review-security
+  - verify
+  - archive
+artifactRefs:
+  proposal:
+    - ref: openspec/changes/archive/2026-07-11-source-row-first-security-review/proposal.md
+      persisted: true
+      readable: true
+  spec:
+    - ref: openspec/changes/archive/2026-07-11-source-row-first-security-review/specs/sdd-review-security-workflow/spec.md
+      persisted: true
+      readable: true
+    - ref: openspec/changes/archive/2026-07-11-source-row-first-security-review/specs/sdd-security-guideline-catalog/spec.md
+      persisted: true
+      readable: true
+    - ref: openspec/changes/archive/2026-07-11-source-row-first-security-review/specs/sdd-execution-persistence-contracts/spec.md
+      persisted: true
+      readable: true
+    - ref: openspec/changes/archive/2026-07-11-source-row-first-security-review/specs/canonical-review-json-excel-exporter/spec.md
+      persisted: true
+      readable: true
+  design:
+    - ref: openspec/changes/archive/2026-07-11-source-row-first-security-review/design.md
+      persisted: true
+      readable: true
+  testDesign:
+    - ref: openspec/changes/archive/2026-07-11-source-row-first-security-review/test-design.md
+      persisted: true
+      readable: true
+  tasks:
+    - ref: openspec/changes/archive/2026-07-11-source-row-first-security-review/tasks.md
+      persisted: true
+      readable: true
+  applyProgress:
+    - ref: openspec/changes/archive/2026-07-11-source-row-first-security-review/apply-progress.md
+      persisted: true
+      readable: true
+  reviewReport:
+    - ref: openspec/changes/archive/2026-07-11-source-row-first-security-review/review-report.json
+      persisted: true
+      readable: true
+    - ref: openspec/changes/archive/2026-07-11-source-row-first-security-review/review-report.md
+      persisted: true
+      readable: true
+  securityReviewReport:
+    - ref: openspec/changes/archive/2026-07-11-source-row-first-security-review/review-security-report.json
+      authority: canonical
+      persisted: true
+      readable: true
+    - ref: openspec/changes/archive/2026-07-11-source-row-first-security-review/review-security-report.md
+      authority: derived
+      persisted: true
+      readable: true
+  verifyReport:
+    - ref: openspec/changes/archive/2026-07-11-source-row-first-security-review/verify-report.md
+      persisted: true
+      readable: true
+  archiveReport:
+    - ref: openspec/changes/archive/2026-07-11-source-row-first-security-review/archive-report.md
+      persisted: true
+      readable: true
+  state:
+    - ref: openspec/changes/archive/2026-07-11-source-row-first-security-review/state.yaml
+      persisted: true
+      readable: true
+blockedReasons: []
+nextRecommended: none
+deliveryStrategy: auto-chain
+chainStrategy: stacked-to-main
+chainPlanRef: openspec/changes/archive/2026-07-11-source-row-first-security-review/tasks.md#suggested-work-units
+reviewBudgetLines: 400
+sizeException: null
+archiveStatus: archived
+archiveDestination: openspec/changes/archive/2026-07-11-source-row-first-security-review/
+stateRevision: 2026-07-11T01:05:00Z
+updatedAt: 2026-07-11T01:05:00Z

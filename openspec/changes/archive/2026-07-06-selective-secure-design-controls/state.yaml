@@ -1,0 +1,61 @@
+schemaName: sdd.state
+schemaVersion: 1
+changeName: selective-secure-design-controls
+artifactStore: openspec
+currentPhase: complete
+completedPhases:
+  - explore
+  - propose
+  - spec
+  - design
+  - test-design
+  - tasks
+  - apply
+  - review
+  - review-security
+  - verify
+  - archive
+artifactRefs:
+  explore:
+    - openspec/changes/archive/2026-07-06-selective-secure-design-controls/explore.md
+  proposal:
+    - openspec/changes/archive/2026-07-06-selective-secure-design-controls/proposal.md
+  specs:
+    - openspec/changes/archive/2026-07-06-selective-secure-design-controls/specs/sdd-design-workflow/spec.md
+    - openspec/changes/archive/2026-07-06-selective-secure-design-controls/specs/sdd-review-security-workflow/spec.md
+    - openspec/changes/archive/2026-07-06-selective-secure-design-controls/specs/sdd-security-guideline-catalog/spec.md
+    - openspec/changes/archive/2026-07-06-selective-secure-design-controls/specs/sdd-test-design-workflow/spec.md
+    - openspec/changes/archive/2026-07-06-selective-secure-design-controls/specs/sdd-execution-persistence-contracts/spec.md
+  securityApplicability: []
+  design:
+    - openspec/changes/archive/2026-07-06-selective-secure-design-controls/design.md
+  securityDesign: []
+  testDesign:
+    - openspec/changes/archive/2026-07-06-selective-secure-design-controls/test-design.md
+  tasks:
+    - openspec/changes/archive/2026-07-06-selective-secure-design-controls/tasks.md
+  applyProgress:
+    - openspec/changes/archive/2026-07-06-selective-secure-design-controls/apply-progress.md
+  reviewReport:
+    - openspec/changes/archive/2026-07-06-selective-secure-design-controls/review-report.md
+  securityReviewReport:
+    - openspec/changes/archive/2026-07-06-selective-secure-design-controls/review-security-report.md
+  verifyReport:
+    - openspec/changes/archive/2026-07-06-selective-secure-design-controls/verify-report.md
+  archiveReport:
+    - openspec/changes/archive/2026-07-06-selective-secure-design-controls/archive-report.md
+  state:
+    - openspec/changes/archive/2026-07-06-selective-secure-design-controls/state.yaml
+delivery:
+  deliveryStrategy: auto-chain
+  reviewBudgetLines: 400
+  chainStrategy: stacked-to-main
+  chainPlanRef: openspec/changes/archive/2026-07-06-selective-secure-design-controls/tasks.md#suggested-work-units
+  sizeException:
+    approved: false
+    approver: null
+    rationale: null
+nextRecommended: none
+blockedReasons: []
+stateRevision: "2026-07-06T00:00:13Z-archive"
+updatedAt: "2026-07-06T00:00:13Z"

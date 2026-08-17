@@ -1,0 +1,333 @@
+{
+  "schemaName": "sdd-review-security.review-security-report",
+  "schemaVersion": 1,
+  "changeName": "canonical-review-json-excel-exporter",
+  "artifactKind": "canonical-security-review-report",
+  "generatedAt": "2026-07-10T23:05:00Z",
+  "status": "success",
+  "verdict": "PASS WITH WARNINGS",
+  "nextRecommended": "verify",
+  "sourceRefs": {
+    "secureDesign": "openspec/changes/canonical-review-json-excel-exporter/design.md#secure-development-design",
+    "testDesign": "openspec/changes/canonical-review-json-excel-exporter/test-design.md",
+    "tasks": "openspec/changes/canonical-review-json-excel-exporter/tasks.md",
+    "applyProgress": "openspec/changes/canonical-review-json-excel-exporter/tasks.md#apply-blocker-remediation-evidence",
+    "changedFiles": [
+      "python/requirements.txt",
+      "python/README.md",
+      "python/json_report_to_excel.py",
+      "python/tests/test_json_report_to_excel.py"
+    ]
+  },
+  "catalogRefs": {
+    "operationalJson": "skills/sdd-review-security/references/security-guideline-catalog.operational.json",
+    "humanMarkdown": "skills/sdd-review-security/references/security-guideline-catalog.md",
+    "snapshotId": "security-guidelines-initial-user-snapshot-2026-06-30",
+    "expectedSourceRowCount": 155,
+    "expectedCompactControlCount": 8
+  },
+  "generalReviewHandoff": {
+    "canonicalJsonRef": "openspec/changes/canonical-review-json-excel-exporter/review-report.json",
+    "derivedMarkdownRef": "openspec/changes/canonical-review-json-excel-exporter/review-report.md",
+    "verdict": "PASS WITH WARNINGS",
+    "nonBlocking": true,
+    "jsonAuthoritative": true,
+    "markdownParityStatus": "passed",
+    "handoffSummary": "General review rerun is non-blocking: PASS WITH WARNINGS, 0 blocking failures, 2 non-blocking findings, nextRecommended review-security. Canonical review-report.json is authoritative; Markdown is compatibility only. Pytest passed after nested table path remediation with 18 collected / 18 passed. Coverage, lint, typecheck, formatter, project build, and dedicated secret scanner remain unavailable and are not claimed passing.",
+    "securityRelevantRefs": [
+      "openspec/changes/canonical-review-json-excel-exporter/review-report.json#changedFileSecurityHandoff",
+      "openspec/changes/canonical-review-json-excel-exporter/review-report.json#operationalEvidenceSummary",
+      "openspec/changes/canonical-review-json-excel-exporter/review-report.json#runtimeChecks"
+    ]
+  },
+  "compactControlValidation": {
+    "expectedCount": 8,
+    "validatedCount": 8,
+    "coverageStatus": "complete",
+    "exactOnce": true,
+    "rows": [
+      {
+        "guidelineId": "SEC-AUTH-001",
+        "category": "authentication",
+        "designApplies": "N/A",
+        "lifecycleStatus": "not-applicable",
+        "complies": "N/A",
+        "evidenceLocation": "proposal.md#scope; design.md#secure-development-design; python/json_report_to_excel.py",
+        "observations": "No login, identity proofing, credential validation, MFA, impersonation, account recovery, or protected web resource is introduced by this manual local CLI.",
+        "finding": "none"
+      },
+      {
+        "guidelineId": "SEC-SESS-001",
+        "category": "sessions",
+        "designApplies": "N/A",
+        "lifecycleStatus": "not-applicable",
+        "complies": "N/A",
+        "evidenceLocation": "proposal.md#scope; design.md#secure-development-design; python/json_report_to_excel.py",
+        "observations": "No cookies, bearer tokens, refresh flow, server-side session, session lifetime, revocation, renewal, or fixation behavior is introduced.",
+        "finding": "none"
+      },
+      {
+        "guidelineId": "SEC-DATA-001",
+        "category": "sensitive-data-pan",
+        "designApplies": "Yes",
+        "lifecycleStatus": "implemented",
+        "complies": "Yes",
+        "evidenceLocation": "design.md#restricted-data-boundary; python/README.md; python/tests/test_json_report_to_excel.py#test_cli_exit_codes_and_safe_errors",
+        "observations": "The exporter treats JSON content as user-controlled local input and writes a derived local workbook by explicit user choice. It does not dump payloads to stderr or SDD evidence. Residual warning: generated workbooks inherit the confidentiality of the source JSON and remain caller-controlled local artifacts.",
+        "finding": "warning"
+      },
+      {
+        "guidelineId": "SEC-SECRET-001",
+        "category": "secrets",
+        "designApplies": "Yes",
+        "lifecycleStatus": "implemented",
+        "complies": "Yes",
+        "evidenceLocation": "python/requirements.txt; python/json_report_to_excel.py; python/tests/test_json_report_to_excel.py#test_cli_exit_codes_and_safe_errors",
+        "observations": "No secret storage, credential constants, tokens, connection strings, or network authentication are introduced. Sentinel sensitive-looking fixture values are not emitted in stderr; user-selected workbook output may still contain user-provided report values by design.",
+        "finding": "none"
+      },
+      {
+        "guidelineId": "SEC-ACCESS-001",
+        "category": "permissions-access-control",
+        "designApplies": "N/A",
+        "lifecycleStatus": "not-applicable",
+        "complies": "N/A",
+        "evidenceLocation": "proposal.md#scope; design.md#secure-development-design; python/json_report_to_excel.py",
+        "observations": "No roles, ownership checks, tenant boundaries, administrative workflow, protected resource model, or authorization decision is added.",
+        "finding": "none"
+      },
+      {
+        "guidelineId": "SEC-FILE-001",
+        "category": "files",
+        "designApplies": "Yes",
+        "lifecycleStatus": "implemented",
+        "complies": "Yes",
+        "evidenceLocation": "python/json_report_to_excel.py#DEFAULT_TABLE_BY_SCHEMA; python/json_report_to_excel.py#get_value_at_path; python/tests/test_json_report_to_excel.py#test_security_schema_exports_nested_compact_control_rows; python/README.md#table-selection",
+        "observations": "Nested table path remediation satisfies the current canonical security-review JSON: schemaName sdd-review-security.review-security-report defaults to compactControlValidation.rows; manual --table supports top-level table names and nested dotted paths; missing or invalid nested paths fail before workbook save. The CLI reads only the explicit local JSON path, writes only the resolved output path, does not scan directories, parse Markdown, fetch remote content, or require Excel automation.",
+        "finding": "none"
+      },
+      {
+        "guidelineId": "SEC-DB-001",
+        "category": "database-access",
+        "designApplies": "N/A",
+        "lifecycleStatus": "not-applicable",
+        "complies": "N/A",
+        "evidenceLocation": "proposal.md#scope; design.md#secure-development-design; python/json_report_to_excel.py",
+        "observations": "No SQL, ORM, migration, tenant isolation, persistence layer, reporting database, or background data access path is introduced.",
+        "finding": "none"
+      },
+      {
+        "guidelineId": "SEC-LOG-001",
+        "category": "sensitive-logging",
+        "designApplies": "Yes",
+        "lifecycleStatus": "implemented",
+        "complies": "Yes",
+        "evidenceLocation": "design.md#sensitive-logging-rules; python/json_report_to_excel.py#main; python/tests/test_json_report_to_excel.py#test_cli_exit_codes_and_safe_errors; python/tests/test_json_report_to_excel.py#test_subprocess_has_no_traceback_on_user_error",
+        "observations": "The CLI emits concise user-correctable errors to stderr and tests assert no raw payload sentinel values or tracebacks are emitted. No application logging, traces, metrics, or raw report dumps are introduced.",
+        "finding": "none"
+      }
+    ]
+  },
+  "sourceRowValidation": {
+    "applies": true,
+    "expectedCount": 155,
+    "validatedCount": 155,
+    "coverageStatus": "complete",
+    "exactOnce": true,
+    "reportMode": "summary",
+    "fullMatrixRendered": false,
+    "sectionCoverage": [
+      { "corporateSection": "1. Authentication", "expected": 10, "validated": 10, "blockers": 0, "warnings": 0, "naCount": 10, "notes": "No authentication or protected web-resource surface is introduced." },
+      { "corporateSection": "2. Passwords", "expected": 23, "validated": 23, "blockers": 0, "warnings": 0, "naCount": 23, "notes": "No password, credential-store, password reset, or credential policy behavior is introduced." },
+      { "corporateSection": "3. Access and Activity Logging", "expected": 11, "validated": 11, "blockers": 0, "warnings": 0, "naCount": 9, "notes": "Audit/activity logging is not introduced; sensitive-output expectations apply to CLI stderr only." },
+      { "corporateSection": "4. Cryptography", "expected": 8, "validated": 8, "blockers": 0, "warnings": 0, "naCount": 8, "notes": "No cryptographic storage, transmission, certificate, random generation, or key-management surface is introduced." },
+      { "corporateSection": "5. Databases", "expected": 12, "validated": 12, "blockers": 0, "warnings": 0, "naCount": 12, "notes": "No database or connection-string surface is introduced." },
+      { "corporateSection": "6. Coding", "expected": 14, "validated": 14, "blockers": 0, "warnings": 0, "naCount": 8, "notes": "Relevant coding rows are satisfied by fail-closed validation, stdlib JSON parsing, no eval/formula execution, no remote fetch, no exposed config, dependency minimization, and review evidence." },
+      { "corporateSection": "7. Session Management", "expected": 13, "validated": 13, "blockers": 0, "warnings": 0, "naCount": 13, "notes": "No session identifier, cookie, token, logout, renewal, or timeout surface is introduced." },
+      { "corporateSection": "8. Error Handling", "expected": 5, "validated": 5, "blockers": 0, "warnings": 0, "naCount": 2, "notes": "Relevant error-handling rows are satisfied by deterministic ExportError handling and no traceback/payload dumping for user-correctable failures." },
+      { "corporateSection": "9. File Handling", "expected": 12, "validated": 12, "blockers": 0, "warnings": 1, "naCount": 5, "notes": "Relevant file rows are satisfied for explicit local JSON input and explicit/derived workbook output; nested compactControlValidation.rows export is remediated. Generated workbook confidentiality remains a non-blocking warning." },
+      { "corporateSection": "10. Memory Management", "expected": 6, "validated": 6, "blockers": 0, "warnings": 0, "naCount": 6, "notes": "No native buffer or explicit sensitive-memory management surface is introduced; Python file reads use context managers." },
+      { "corporateSection": "11. Input Validation", "expected": 16, "validated": 16, "blockers": 0, "warnings": 0, "naCount": 16, "notes": "Catalog section maps to database-oriented validation; no database surface is introduced. JSON/table shape validation is covered under file/coding evidence." },
+      { "corporateSection": "12. Output Encoding", "expected": 5, "validated": 5, "blockers": 0, "warnings": 0, "naCount": 5, "notes": "No browser, XML, LDAP, SQL, or command-output encoding surface is introduced; workbook text is generated through openpyxl and formula-like strings are forced to text cells." },
+      { "corporateSection": "13. Data Protection", "expected": 9, "validated": 9, "blockers": 0, "warnings": 1, "naCount": 8, "notes": "The utility does not log or persist SDD evidence payloads; generated workbooks inherit source JSON confidentiality and remain user-controlled local output." },
+      { "corporateSection": "14. Access Control", "expected": 9, "validated": 9, "blockers": 0, "warnings": 0, "naCount": 9, "notes": "No roles, authorization, admin account, protected download, or public/private web-resource boundary is introduced." },
+      { "corporateSection": "15. PAN — Primary Account Number", "expected": 2, "validated": 2, "blockers": 0, "warnings": 0, "naCount": 2, "notes": "No PAN-specific storage, display, masking, or truncation surface is introduced; evidence avoids PAN values." }
+    ],
+    "focusedRows": [
+      {
+        "sourceId": "3.10",
+        "corporateSection": "3. Access and Activity Logging",
+        "pciAlignment": "N/A",
+        "guidelineRefs": ["skills/sdd-review-security/references/security-guideline-catalog.operational.json#sourceRows (Source ID 3.10)"],
+        "compactMappings": ["SEC-LOG-001"],
+        "applies": "Yes",
+        "complies": "Yes",
+        "lifecycleStatus": "implemented",
+        "evidenceType": "test-evidence",
+        "evidenceLocation": "python/tests/test_json_report_to_excel.py#test_cli_exit_codes_and_safe_errors",
+        "finding": "none",
+        "ownerPhase": "review-security",
+        "route": "verify"
+      },
+      {
+        "sourceId": "6.5",
+        "corporateSection": "6. Coding",
+        "pciAlignment": "PCI Req 6.5.8, 6.5.9",
+        "guidelineRefs": ["skills/sdd-review-security/references/security-guideline-catalog.operational.json#sourceRows (Source ID 6.5)"],
+        "compactMappings": ["SEC-SECRET-001", "SEC-ACCESS-001", "SEC-AUTH-001", "SEC-DATA-001", "SEC-DB-001", "SEC-SESS-001", "SEC-FILE-001", "SEC-LOG-001"],
+        "applies": "Yes",
+        "complies": "Yes",
+        "lifecycleStatus": "implemented",
+        "evidenceType": "static-inspection",
+        "evidenceLocation": "python/json_report_to_excel.py#DEFAULT_TABLE_BY_SCHEMA; python/tests/test_json_report_to_excel.py#test_security_schema_exports_nested_compact_control_rows",
+        "finding": "none",
+        "ownerPhase": "review-security",
+        "route": "verify"
+      },
+      {
+        "sourceId": "8.1",
+        "corporateSection": "8. Error Handling",
+        "pciAlignment": "PCI Req 6.3.c, 6.5.5",
+        "guidelineRefs": ["skills/sdd-review-security/references/security-guideline-catalog.operational.json#sourceRows (Source ID 8.1)"],
+        "compactMappings": ["SEC-LOG-001"],
+        "applies": "Yes",
+        "complies": "Yes",
+        "lifecycleStatus": "implemented",
+        "evidenceType": "implementation-reference",
+        "evidenceLocation": "python/json_report_to_excel.py#main",
+        "finding": "none",
+        "ownerPhase": "review-security",
+        "route": "verify"
+      },
+      {
+        "sourceId": "9.12",
+        "corporateSection": "9. File Handling",
+        "pciAlignment": "PCI Req 6.5.8",
+        "guidelineRefs": ["skills/sdd-review-security/references/security-guideline-catalog.operational.json#sourceRows (Source ID 9.12)"],
+        "compactMappings": ["SEC-FILE-001"],
+        "applies": "Yes",
+        "complies": "Yes",
+        "lifecycleStatus": "implemented",
+        "evidenceType": "test-evidence",
+        "evidenceLocation": "python/tests/test_json_report_to_excel.py#test_security_schema_exports_nested_compact_control_rows; python/tests/test_json_report_to_excel.py#test_missing_nested_table_fails_before_save_and_mentions_path",
+        "finding": "none",
+        "ownerPhase": "review-security",
+        "route": "verify"
+      },
+      {
+        "sourceId": "9.7",
+        "corporateSection": "9. File Handling",
+        "pciAlignment": "PCI Req 6.5.8",
+        "guidelineRefs": ["skills/sdd-review-security/references/security-guideline-catalog.operational.json#sourceRows (Source ID 9.7)"],
+        "compactMappings": ["SEC-FILE-001"],
+        "applies": "N/A",
+        "complies": "N/A",
+        "lifecycleStatus": "not-applicable",
+        "evidenceType": "n/a-evidence",
+        "evidenceLocation": "design.md#secure-development-design; python/README.md",
+        "finding": "none",
+        "ownerPhase": "review-security",
+        "route": "verify"
+      },
+      {
+        "sourceId": "13.1",
+        "corporateSection": "13. Data Protection",
+        "pciAlignment": "PCI Req 6.3.c, 6.5.4",
+        "guidelineRefs": ["skills/sdd-review-security/references/security-guideline-catalog.operational.json#sourceRows (Source ID 13.1)"],
+        "compactMappings": ["SEC-DATA-001", "SEC-ACCESS-001"],
+        "applies": "Yes",
+        "complies": "Yes",
+        "lifecycleStatus": "implemented",
+        "evidenceType": "implementation-reference",
+        "evidenceLocation": "design.md#secure-development-design; python/README.md",
+        "finding": "warning",
+        "ownerPhase": "verify",
+        "route": "verify"
+      },
+      {
+        "sourceId": "1.1",
+        "corporateSection": "1. Authentication",
+        "pciAlignment": "PCI Req 6.5.8, 6.5.10",
+        "guidelineRefs": ["skills/sdd-review-security/references/security-guideline-catalog.operational.json#sourceRows (Source ID 1.1)"],
+        "compactMappings": ["SEC-AUTH-001", "SEC-ACCESS-001"],
+        "applies": "N/A",
+        "complies": "N/A",
+        "lifecycleStatus": "not-applicable",
+        "evidenceType": "n/a-evidence",
+        "evidenceLocation": "proposal.md#scope; design.md#secure-development-design",
+        "finding": "none",
+        "ownerPhase": "review-security",
+        "route": "verify"
+      }
+    ]
+  },
+  "blockers": [],
+  "warnings": [
+    {
+      "id": "SEC-DATA-001-W01",
+      "severity": "WARNING",
+      "summary": "Generated workbooks inherit the confidentiality of user-selected canonical JSON content; SDD evidence remains safe because it cites only paths, commands, and sheet-structure summaries, not workbook bytes or payload values.",
+      "evidenceLocation": "design.md#restricted-data-boundary; python/README.md; tasks.md#apply-blocker-remediation-evidence",
+      "ownerPhase": "verify",
+      "route": "verify"
+    },
+    {
+      "id": "GEN-REVIEW-W01",
+      "severity": "WARNING",
+      "summary": "General review warning carried forward: coverage, lint, typecheck, formatter, project build, and dedicated secret scanner remain unavailable and are not claimed passing; acceptance sample limitations remain non-blocking evidence context.",
+      "evidenceLocation": "openspec/changes/canonical-review-json-excel-exporter/review-report.json#runtimeChecks; tasks.md#post-apply-unblock-evidence",
+      "ownerPhase": "verify",
+      "route": "verify"
+    }
+  ],
+  "unsafeEvidenceRejections": [],
+  "warningCarryForward": [
+    {
+      "id": "SEC-DATA-001-W01",
+      "severity": "WARNING",
+      "summary": "Carry forward generated-workbook confidentiality warning to verify/archive: generated .xlsx files are derived local output and may contain user-controlled report content; do not persist workbook bytes or full exported payloads as SDD evidence.",
+      "evidenceLocation": "openspec/changes/canonical-review-json-excel-exporter/review-security-report.json#compactControlValidation",
+      "ownerPhase": "verify",
+      "route": "verify"
+    },
+    {
+      "id": "GEN-REVIEW-W01",
+      "severity": "WARNING",
+      "summary": "Carry forward non-blocking general review warnings about unavailable non-required tooling, dedicated secret scanner absence, and acceptance sample limitations.",
+      "evidenceLocation": "openspec/changes/canonical-review-json-excel-exporter/review-report.json",
+      "ownerPhase": "verify",
+      "route": "verify"
+    }
+  ],
+  "exceptions": [],
+  "unavailableTooling": [
+    "Coverage command/tooling unavailable and not claimed passing.",
+    "Lint command/tooling unavailable and not claimed passing.",
+    "Typecheck command/tooling unavailable and not claimed passing.",
+    "Formatter command/tooling unavailable and not claimed passing.",
+    "Project build command unavailable for this standalone Python utility and not claimed passing.",
+    "No dedicated secret scanner was available; safe-evidence judgment used design, static inspection, tests, and general-review handoff only."
+  ],
+  "artifactMetadata": {
+    "canonicalJsonRef": "openspec/changes/canonical-review-json-excel-exporter/review-security-report.json",
+    "derivedMarkdownRef": "openspec/changes/canonical-review-json-excel-exporter/review-security-report.md",
+    "jsonPersisted": true,
+    "jsonReadBack": true,
+    "markdownGenerated": true,
+    "markdownPersisted": true,
+    "markdownReadBack": true,
+    "parityStatus": "passed",
+    "stateRegistration": [
+      {
+        "ref": "openspec/changes/canonical-review-json-excel-exporter/review-security-report.json",
+        "authority": "canonical",
+        "readable": true
+      },
+      {
+        "ref": "openspec/changes/canonical-review-json-excel-exporter/review-security-report.md",
+        "authority": "derived",
+        "readable": true
+      }
+    ]
+  }
+}

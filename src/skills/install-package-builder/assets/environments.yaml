@@ -1,0 +1,125 @@
+# OWEXX Deployment Environments
+# web containers: MS01_A1_8014, MS02_A1_8014
+# api containers: MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013
+
+environments:
+  - name: Desarrollo
+    host: oxzvmowxdapp01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: QA
+    host: oxzvmowxqapp01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: Aguascalientes
+    host: oxzvmowxagsplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: Azcapotzalco
+    host: oxzvmowxazcplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: "Chihuahua"
+    host: oxzvmowxchuplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: "Culiacán"
+    host: oxzvmowxculplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: Escobedo
+    host: oxzvmowxescplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: Guadalupe
+    host: oxzvmowxgpeplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: "La Paz"
+    host: oxzvmowxpazplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: "León"
+    host: oxzvmowxlenplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: Merida
+    host: oxzvmowxmdaplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: Mexicali
+    host: oxzvmowxmxlplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: "Obregón"
+    host: oxzvmowxobrplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: Puebla
+    host: oxzvmowxpueplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: "Querétaro"
+    host: oxzvmowxqroplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: Reynosa
+    host: oxzvmowleonappr1.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: Saltillo
+    host: oxzvmowxsalplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: "San Martín"
+    host: oxzvmowxsmoplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: Tampico
+    host: oxzvmowxtmpplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: Tijuana
+    host: oxzvmowxtijplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: Tlajomulco
+    host: oxvwlowp1.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: Toluca
+    host: oxzvmowxtolplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: Veracruz
+    host: oxzvmowxverplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]
+  - name: "Villa Hermosa"
+    host: oxzvmowxvhsplap01.femcom.net
+    containers:
+      web: [MS01_A1_8014, MS02_A1_8014]
+      api: [MS01_A1_8011, MS01_A1_8012, MS01_A1_8013, MS02_A1_8011, MS02_A1_8012, MS02_A1_8013]

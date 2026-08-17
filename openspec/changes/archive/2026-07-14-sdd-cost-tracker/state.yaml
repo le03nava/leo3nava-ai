@@ -1,0 +1,15 @@
+changeName: sdd-cost-tracker
+archivedAt: 2026-07-14
+artifactStore: openspec
+specsSynced:
+  - domain: sdd-cost-tracking
+    action: created
+    details: 1 created (full spec copied from change delta)
+verification:
+  verifyReport: openspec/changes/sdd-cost-tracker/verify-report.md
+  reviewReport: openspec/changes/sdd-cost-tracker/review-report.json
+  reviewSecurityReport: openspec/changes/sdd-cost-tracker/review-security-report.json
+  verdict: PASS WITH WARNINGS
+  testsVerified: 26
+  tasksComplete: 44
+archiveReport: openspec/changes/archive/2026-07-14-sdd-cost-tracker/archive-report.md

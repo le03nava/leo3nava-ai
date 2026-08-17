@@ -1,0 +1,62 @@
+schemaName: sdd.state
+schemaVersion: 1
+changeName: corporate-source-row-security-validation
+artifactStore: openspec
+currentPhase: verify
+completedPhases:
+  - explore
+  - propose
+  - spec
+  - design
+  - test-design
+  - tasks
+  - apply
+  - review
+  - review-security
+  - verify
+artifactRefs:
+  explore:
+    - openspec/changes/corporate-source-row-security-validation/explore.md
+  proposal:
+    - openspec/changes/corporate-source-row-security-validation/proposal.md
+  specs:
+    - openspec/changes/corporate-source-row-security-validation/specs/sdd-security-guideline-catalog/spec.md
+    - openspec/changes/corporate-source-row-security-validation/specs/sdd-design-workflow/spec.md
+    - openspec/changes/corporate-source-row-security-validation/specs/sdd-test-design-workflow/spec.md
+    - openspec/changes/corporate-source-row-security-validation/specs/sdd-review-security-workflow/spec.md
+    - openspec/changes/corporate-source-row-security-validation/specs/sdd-execution-persistence-contracts/spec.md
+  securityApplicability: []
+  design:
+    - openspec/changes/corporate-source-row-security-validation/design.md
+  securityDesign: []
+  testDesign:
+    - openspec/changes/corporate-source-row-security-validation/test-design.md
+  tasks:
+    - openspec/changes/corporate-source-row-security-validation/tasks.md
+  applyProgress:
+    - openspec/changes/corporate-source-row-security-validation/tasks.md#apply-evidence--work-unit-1
+    - openspec/changes/corporate-source-row-security-validation/tasks.md#apply-evidence--work-unit-2
+    - openspec/changes/corporate-source-row-security-validation/tasks.md#apply-evidence--work-unit-3
+    - openspec/changes/corporate-source-row-security-validation/apply-evidence-wu4.md
+  reviewReport:
+    - openspec/changes/corporate-source-row-security-validation/review-report.md
+  securityReviewReport:
+    - openspec/changes/corporate-source-row-security-validation/review-security-report.md
+  verifyReport:
+    - openspec/changes/corporate-source-row-security-validation/verify-report.md
+  archiveReport: []
+  state:
+    - openspec/changes/corporate-source-row-security-validation/state.yaml
+delivery:
+  deliveryStrategy: auto-chain
+  reviewBudgetLines: 400
+  chainStrategy: stacked-to-main
+  chainPlanRef: openspec/changes/corporate-source-row-security-validation/tasks.md#chain-plan
+  sizeException:
+    approved: false
+    approver: null
+    rationale: null
+nextRecommended: archive
+blockedReasons: []
+stateRevision: 2026-07-06T13:35:53.0213724-06:00
+updatedAt: 2026-07-06T13:35:53.0213724-06:00

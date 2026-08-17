@@ -1,0 +1,290 @@
+{
+  "schemaName": "sdd.test-cases",
+  "schemaVersion": 1,
+  "changeName": "token-monitor",
+  "generatedBy": "sdd-test-design",
+  "updatedBy": "sdd-verify",
+  "updatedAt": "2026-07-13T16:00:00Z",
+  "cases": [
+    {
+      "id": "TC-001",
+      "description": "Extract prompt_tokens, completion_tokens, total_tokens from a non-streaming JSON response body containing a top-level 'usage' object",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Scenario: Non-streaming LLM response intercepted",
+      "category": "unit-token-extraction"
+    },
+    {
+      "id": "TC-002",
+      "description": "Return None / skip persistence when the response body is valid JSON but has no 'usage' key",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Requirement: Proxy Interception (guard missing usage)",
+      "category": "unit-token-extraction"
+    },
+    {
+      "id": "TC-003",
+      "description": "Return None / skip persistence when the response body is not valid JSON",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Requirement: Proxy Interception (malformed body guard)",
+      "category": "unit-token-extraction"
+    },
+    {
+      "id": "TC-004",
+      "description": "Buffer multiple SSE data chunks per flow.id and extract usage from the final chunk that carries a 'usage' object",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Scenario: Streaming response — usage in final chunk",
+      "category": "unit-sse-buffering"
+    },
+    {
+      "id": "TC-005",
+      "description": "When the final SSE chunk has no 'usage' key: log a warning and do NOT persist any token event row",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Scenario: Streaming response — no usage in final chunk",
+      "category": "unit-sse-buffering"
+    },
+    {
+      "id": "TC-006",
+      "description": "Release the per-flow SSE buffer from sse_buffers dict after stream completion (no memory leak)",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-export: Requirement: Proxy Overhead (SSE buffer released after completion)",
+      "category": "unit-sse-buffering"
+    },
+    {
+      "id": "TC-007",
+      "description": "Agent detection: X-Agent-Name header present → its value is used as agent label (highest priority)",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Requirement: Agent Detection (X-Agent-Name priority)",
+      "category": "unit-agent-detection"
+    },
+    {
+      "id": "TC-008",
+      "description": "Agent detection: no X-Agent-Name header, User-Agent contains 'opencode' → agent = 'opencode'",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Scenario: Known agent via User-Agent",
+      "category": "unit-agent-detection"
+    },
+    {
+      "id": "TC-009",
+      "description": "Agent detection: no X-Agent-Name header, User-Agent contains 'claude' or 'claude-code' → agent = 'claude-code'",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Requirement: Agent Detection",
+      "category": "unit-agent-detection"
+    },
+    {
+      "id": "TC-010",
+      "description": "Agent detection: no X-Agent-Name, unrecognized User-Agent → agent = 'unknown'",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Scenario: Unknown agent fallback",
+      "category": "unit-agent-detection"
+    },
+    {
+      "id": "TC-011",
+      "description": "Agent detection: neither X-Agent-Name nor User-Agent header present → agent = 'unknown', no crash",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Scenario: Unknown agent fallback (no headers at all)",
+      "category": "unit-agent-detection"
+    },
+    {
+      "id": "TC-012",
+      "description": "Header extraction: X-Project header present → project field populated in event dict",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Requirement: Agent Detection (nullable header fields)",
+      "category": "unit-header-extraction"
+    },
+    {
+      "id": "TC-013",
+      "description": "Header extraction: X-Phase header present → phase field populated in event dict",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Requirement: Agent Detection (nullable header fields)",
+      "category": "unit-header-extraction"
+    },
+    {
+      "id": "TC-014",
+      "description": "Header extraction: X-Session-ID header present → session_id field populated in event dict",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Requirement: Agent Detection (nullable header fields)",
+      "category": "unit-header-extraction"
+    },
+    {
+      "id": "TC-015",
+      "description": "Header extraction: X-Request-Id header present → request_id field populated in event dict",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Requirement: Agent Detection (nullable header fields)",
+      "category": "unit-header-extraction"
+    },
+    {
+      "id": "TC-016",
+      "description": "Header extraction: all nullable headers absent → corresponding fields are NULL, no crash",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Requirement: Agent Detection (nullable headers persist as NULL)",
+      "category": "unit-header-extraction"
+    },
+    {
+      "id": "TC-017",
+      "description": "storage.py: insert_event() writes a complete token_events row; verify all 15 schema columns via SELECT",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Scenario: Row inserted on successful capture",
+      "category": "unit-storage"
+    },
+    {
+      "id": "TC-018",
+      "description": "storage.py: after TokenStorage.__init__, PRAGMA journal_mode returns 'wal'",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Requirement: SQLite Persistence (WAL mode)",
+      "category": "unit-storage"
+    },
+    {
+      "id": "TC-019",
+      "description": "storage.py: insert_event() raises an internal error (e.g. table dropped mid-session) → error is caught and logged; no exception propagates to the caller",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-capture: Scenario: DB write error does not crash proxy",
+      "category": "unit-storage"
+    },
+    {
+      "id": "TC-020",
+      "description": "export.py: given a pre-seeded DB with 3 rows, --format jsonl outputs exactly 3 valid JSON objects, one per line, each with all 15 schema fields",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-export: Scenario: Full JSONL export succeeds",
+      "category": "unit-export"
+    },
+    {
+      "id": "TC-021",
+      "description": "export.py: given rows where some session_id values are NULL, --format csv outputs a header row + data rows with empty strings for NULL cells",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-export: Scenario: Full CSV export succeeds",
+      "category": "unit-export"
+    },
+    {
+      "id": "TC-022",
+      "description": "export.py: when the database file does not exist, the script exits with code 1 and prints to stderr",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-export: Scenario: Missing database exits with error",
+      "category": "unit-export"
+    },
+    {
+      "id": "TC-023",
+      "description": "Integration (document-only): Full flow — agent sends HTTPS request through running mitmdump → addon hooks response → mock LLM API returns a non-streaming JSON payload → exactly one row is written to SQLite with correct field values",
+      "type": "manual",
+      "mandatory": false,
+      "status": "warning",
+      "evidence": null,
+      "spec": "token-usage-capture: Scenario: Non-streaming LLM response intercepted (end-to-end)",
+      "category": "integration-flow"
+    },
+    {
+      "id": "TC-024",
+      "description": "Integration (document-only): SSE full flow — mitmdump running, server sends N SSE chunks with usage only in the final chunk → SSE buffer accumulates all chunks → exactly one row persisted after stream end",
+      "type": "manual",
+      "mandatory": false,
+      "status": "warning",
+      "evidence": null,
+      "spec": "token-usage-capture: Scenario: Streaming response — usage in final chunk (end-to-end)",
+      "category": "integration-flow"
+    },
+    {
+      "id": "TC-025",
+      "description": "Static: verify token_monitor.py, storage.py, export.py use parameterized SQL (no f-string or %-format SQL interpolation)",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "design.md#secure-development-design: parameterized queries by design",
+      "category": "security-hygiene"
+    },
+    {
+      "id": "TC-026",
+      "description": "Static: verify no request/response body, prompt content, or API key is persisted in SQLite schema columns or logged to stderr",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "design.md#secure-development-design: no sensitive data stored",
+      "category": "security-hygiene"
+    },
+    {
+      "id": "TC-027",
+      "description": "Static: verify storage.py uses pathlib.Path for all file path operations (Windows portability)",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-export: Requirement: Portability",
+      "category": "portability"
+    },
+    {
+      "id": "TC-028",
+      "description": "Static: verify export.py uses pathlib.Path for all file path operations (Windows portability)",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": null,
+      "spec": "token-usage-export: Requirement: Portability",
+      "category": "portability"
+    }
+  ]
+}

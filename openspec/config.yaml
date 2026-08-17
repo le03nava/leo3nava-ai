@@ -1,0 +1,78 @@
+schema: spec-driven
+
+project:
+  name: leo3nava_ai
+  detected: 2026-06-27
+  artifact_store: openspec
+
+context: |
+  Repository type: AI agent/skill distribution, not an application runtime.
+  Stack: Markdown instruction contracts for SDD agents and skills, plus adapter prompt copies for OpenCode and Claude.
+  Architecture: SDD phase executors, shared SDD contracts under src/skills/_shared, and local support artifacts under .atl.
+  Testing: No package manifest, build file, or executable test runner detected in this repository.
+  Style: Skills use YAML frontmatter and concise runtime-contract sections; generated technical artifacts default to English.
+
+strict_tdd: false
+
+testing:
+  strict_tdd: false
+  reason: No test runner or strict TDD marker/config was detected during initialization.
+  test_runner:
+    available: false
+    framework: null
+    command: ""
+  layers:
+    unit:
+      available: false
+      tool: null
+    integration:
+      available: false
+      tool: null
+    e2e:
+      available: false
+      tool: null
+  coverage:
+    available: false
+    command: ""
+  quality:
+    linter:
+      available: false
+      command: ""
+    type_checker:
+      available: false
+      command: ""
+    formatter:
+      available: false
+      command: ""
+
+delivery:
+  strategy: auto-chain
+  chain_strategy: stacked-to-main
+  review_budget_lines: 400
+
+rules:
+  proposal:
+    - Include intent, scope, non-goals, risks, and rollback plan for risky changes.
+    - Keep generated technical artifacts in English unless project artifacts require otherwise.
+  specs:
+    - Use RFC 2119 keywords for requirements.
+    - Use scenario-oriented acceptance criteria where behavior changes are specified.
+  design:
+    - Document architecture decisions with rationale and affected SDD agents, skills, prompts, or support artifacts.
+    - Include compatibility notes when changing shared contracts consumed by multiple adapters.
+  tasks:
+    - Group tasks into reviewable work units.
+    - Respect the 400 changed-line review budget and prefer stacked-to-main slices when work may exceed it.
+  apply:
+    - Follow existing Markdown/frontmatter conventions.
+    - Do not modify application code during SDD initialization.
+    tdd: false
+    test_command: ""
+  verify:
+    test_command: ""
+    build_command: ""
+    coverage_threshold: 0
+    notes:
+      - Report unavailable runtime tests explicitly instead of treating missing tools as passing evidence.
+  archive:
+    - Preserve archived changes as an audit trail.

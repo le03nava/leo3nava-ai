@@ -1,0 +1,77 @@
+# Test Design: Active-Only Security Contract
+
+## Overview
+
+This change is testable through static inspection and manual read-back only. The repository has no configured runtime test runner, linter, type checker, formatter, or coverage command, so verification must prove the active security contract cleanup through targeted file-content checks, changed-file review, archive immutability checks, and safe-evidence inspection.
+
+## Inputs
+
+| Artifact | Reference | Used For |
+| --- | --- | --- |
+| Proposal | `openspec/changes/active-only-security-contract/proposal.md` | Scope, non-goals, risks, rollback, and success criteria for active-only security contract cleanup. |
+| Spec | `openspec/changes/active-only-security-contract/specs/sdd-security-guideline-catalog/spec.md` | Catalog authority, matrix vocabulary, metadata, and active embedded-design/review-security boundaries. |
+| Spec | `openspec/changes/active-only-security-contract/specs/sdd-review-security-workflow/spec.md` | Required `review-security-report.md` behavior and retirement of active validator/standalone artifact dependencies. |
+| Spec | `openspec/changes/active-only-security-contract/specs/sdd-security-applicability-workflow/spec.md` | Removal of launchable applicability workflow for new changes while preserving historical read-only behavior. |
+| Spec | `openspec/changes/active-only-security-contract/specs/sdd-execution-persistence-contracts/spec.md` | Status/persistence historical-token behavior without active launch authority. |
+| Spec | `openspec/changes/active-only-security-contract/specs/sdd-design-workflow/spec.md` | Embedded secure development design as active authority and direct routing to test-design. |
+| Design | `openspec/changes/active-only-security-contract/design.md` | Architecture decisions, file-change plan, data flow, contracts, rollout, and testing constraints. |
+| Secure Development Design | `openspec/changes/active-only-security-contract/design.md#secure-development-design` | Security-impacting classification, all 8 SEC rows, required evidence, lifecycle statuses, safe-evidence controls, and N/A rationale. |
+| Testing capabilities | `openspec/config.yaml#testing` | Confirms runtime tests, coverage, linting, type checking, and formatting commands are unavailable. |
+
+## Test Cases
+
+| ID | Source | Check | Type | Severity | Expected Evidence | Notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| TD-001 | Proposal success criteria; Design file changes | Inspect `skills/_shared/sdd-security-contract.md` after implementation and confirm it contains only current-flow contract sections: embedded secure design, review-security report, exception fields, lifecycle/status vocabulary, and safe-evidence rules. | static | mandatory | Read-back excerpt or search summary from `skills/_shared/sdd-security-contract.md` showing current-flow sections and no active standalone schema/notes. | Verification-blocking because this is the primary change objective. |
+| TD-002 | Proposal in-scope/out-of-scope; Design decision: active authority | Search active security contract surfaces for retired standalone security schema/prose and confirm no active `security-design.md`, `security-applicability.md`, or validator dependency is presented as required for new changes. | static | mandatory | Targeted search results over active non-archive docs, excluding historical read/display sections where explicitly allowed. | Must distinguish active authority text from bounded historical-read references. |
+| TD-003 | Spec: sdd-security-guideline-catalog / In-Repo Guideline Snapshot | Confirm `skills/_shared/security-guideline-catalog.md` preserves catalog identifiers, source snapshot metadata, mandatory evidence expectations, lifecycle/status vocabulary, and matrix vocabulary for embedded design and review-security. | static | mandatory | Read-back of catalog metadata and guideline vocabulary, including all expected guideline identifiers. | Catalog continuity is required even though active scope wording is cleaned. |
+| TD-004 | Spec: sdd-security-guideline-catalog / Catalog Boundary Preservation | Confirm active authority wording resolves conflicts in favor of `design.md#secure-development-design` plus `review-security-report.md`, without duplicating or redefining catalog source text in `sdd-review`. | static | mandatory | Read-back of catalog boundary text and any changed review workflow text. | Prevents accidental authority drift between catalog, design, and review docs. |
+| TD-005 | Spec: sdd-review-security-workflow / Security Review Artifact | Inspect `skills/sdd-review-security/SKILL.md` and related active workflow docs to confirm `review-security-report.md` validates embedded design rows and does not depend on `scripts/validate_security_design.ps1` or standalone artifacts for active new-change evidence. | static | mandatory | Search/read-back evidence from changed review-security docs showing embedded-design input and report persistence. | The retired validator may only remain in explicitly non-active parser/archive context if needed. |
+| TD-006 | Spec: sdd-review-security-workflow / Embedded secure design is required | Confirm review-security readiness blocks when `design.md#secure-development-design` is missing and leaves verify/archive unavailable until embedded evidence exists. | static | mandatory | Read-back of review-security gate wording naming missing embedded design as a blocker. | This replaces standalone security-design dependency semantics for new changes. |
+| TD-007 | Spec: sdd-review-security-workflow / Active Security Validator Retirement | Confirm new-change security review instructions validate against the catalog and embedded `design.md` rows, not `scripts/validate_security_design.ps1`. | static | mandatory | Targeted search for `validate_security_design.ps1` in active files with only absent or explicitly non-active references. | Unavailable runtime tooling must not be substituted with the retired validator. |
+| TD-008 | Spec: sdd-security-applicability-workflow / Legacy-Only Applicability Classification | Confirm no repo-local active `sdd-security-applicability` executor or skill is offered for new changes and classification lives in `design.md#secure-development-design`. | static | mandatory | File-existence/search evidence across repo-local `skills/`, agent config, and active workflow docs. | Historical archive artifacts may remain readable as data only. |
+| TD-009 | Spec: sdd-security-applicability-workflow / New change excludes applicability phase | Confirm routing after spec goes to `sdd-design` and no active DAG includes `sdd-security-applicability`. | static | mandatory | Read-back of routing/DAG instructions in active docs or status contracts. | Launch authority, not historical display, is the key assertion. |
+| TD-010 | Spec: sdd-security-applicability-workflow / Historical artifact is read-only | Confirm compatibility readers may display archived `security-applicability.md` data without requiring rerun or phase availability. | static | mandatory | Read-back from persistence/status contracts showing read-only historical handling. | Must preserve old state/archive readability. |
+| TD-011 | Spec: sdd-security-applicability-workflow / Removed requirements | Confirm active specs no longer define applicability-specific overrides or active static applicability validator requirements for new changes. | static | mandatory | Search results in active specs/docs showing removed or replaced applicability override/validator language. | Archive content is explicitly excluded from this check. |
+| TD-012 | Spec: sdd-execution-persistence-contracts / Conflict and Ambiguity Resolution | Inspect `skills/_shared/persistence-contract.md` and `skills/_shared/sdd-status-contract.md` if changed, confirming historical `security-applicability` data may be read/displayed but must not normalize to runnable phase, launchable agent, active authority, or required successor. | static | mandatory | Read-back of resolver/status/routing token text with non-launchable historical boundaries. | Covers status/persistence preservation without active launch authority. |
+| TD-013 | Spec: sdd-execution-persistence-contracts / Mandatory Security Artifacts and Status | Confirm new-change dependency/status refs include `design.md` embedded secure rows and `review-security-report.md`, while `security-design.md` and `security-applicability.md` are not active dependencies, produced artifacts, phase-launch inputs, or active authority. | static | mandatory | Read-back of state schema, artifact resolver rows, dependency descriptions, and archive gates. | Historical fields can exist only as read-only data refs. |
+| TD-014 | Spec: sdd-design-workflow / Embedded Secure Development Design | Confirm `skills/sdd-design/SKILL.md` requires `design.md` with `## Secure Development Design` and all 8 SEC IDs as active classification/design authority. | static | mandatory | Read-back from design skill docs showing section requirement and all SEC IDs. | This also supports downstream test-design and review-security evidence. |
+| TD-015 | Spec: sdd-design-workflow / Direct Routing to Test Design | Confirm successful design routes directly to `sdd-test-design` or `test-design` and does not require, launch, or produce standalone security-design for new changes. | static | mandatory | Read-back of design phase output/routing rules. | Directly validates current DAG alignment. |
+| TD-016 | Proposal out-of-scope; Design migration/rollout | Confirm `openspec/changes/archive/**` is not modified by implementation. | static | mandatory | Changed-file list or git diff summary showing no paths under `openspec/changes/archive/**`. | Verification-blocking because archive rewrite is explicitly out of scope. |
+| TD-017 | Proposal out-of-scope; Design decision: active authority | Confirm no separate legacy security contract file is created anywhere in active repo-local skills/contracts. | static | mandatory | New-file list and targeted search for candidate filenames such as `legacy-security-contract`, `security-design-contract`, or similar. | Prevents reintroducing retired workflow as a separate authority. |
+| TD-018 | Design testing strategy; OpenSpec testing config | Report that no automated runner, linter, type checker, formatter, or coverage command is configured; do not treat missing tooling as passing evidence. | manual | mandatory | Verification report cites `openspec/config.yaml#testing` unavailable commands and lists static/manual checks used instead. | This check controls evidence interpretation rather than product behavior. |
+| TD-019 | Secure design: SEC-DATA-001, SEC-SECRET-001, SEC-LOG-001 | Inspect changed artifacts and generated evidence for raw sensitive values, credentials, tokens, private keys, PAN, PII, or confidential payloads; only review-safe paths, summaries, and redacted placeholders are allowed. | static | mandatory | Targeted search/read-back summary showing no raw sensitive values introduced. | Safe evidence rules must remain preserved across reports and docs. |
+| TD-020 | Design contracts; Proposal success criteria | Confirm active consumers use positive current-flow rules rather than explaining the workflow through legacy warnings or compatibility prose. | manual | mandatory | Reviewer read-back notes from changed active consumer docs, especially `sdd-design`, `sdd-review-security`, status, and persistence contracts. | Positive current-flow wording improves maintainability and avoids retired-path misuse. |
+| TD-021 | Design rollout and rollback | Confirm rollback remains a git revert of active contract/spec edits with no migration, runtime, or archive repair steps required. | manual | non-mandatory | Review note comparing final file list with proposal/design rollback assumptions. | Advisory because it supports operational confidence but does not define active behavior. |
+
+## Security Control Coverage
+
+| Guideline ID | Required Control | Mandatory | Planned Check or Evidence | Status | Exception |
+| --- | --- | --- | --- | --- | --- |
+| `SEC-AUTH-001` | Preserve no auth-flow behavior changes. | Yes | TD-016, TD-018, and review-security file-list evidence showing Markdown/spec-only changes and no login, identity, MFA, recovery, or credential-flow surfaces. | covered | None |
+| `SEC-SESS-001` | Preserve no session behavior changes. | Yes | TD-016, TD-018, and review-security file-list evidence showing no cookies, tokens, sessions, or revocation behavior changes. | covered | None |
+| `SEC-DATA-001` | Require review-safe evidence paths, summaries, and redacted placeholders only. | Yes | TD-019 confirms reports and docs do not introduce raw sensitive values. | covered | None |
+| `SEC-SECRET-001` | Keep raw credentials, tokens, and private keys out of SDD evidence. | Yes | TD-019 targeted static inspection for secrets and unsafe evidence values. | covered | None |
+| `SEC-ACCESS-001` | Historical tokens are non-launchable; active gates require embedded design and review-security. | Yes | TD-008 through TD-015 inspect routing, status, persistence, and phase guidance for current-flow launch authority only. | covered | None |
+| `SEC-FILE-001` | Preserve no runtime upload/download/generated-file handling changes. | Yes | TD-016 and TD-018 file-list evidence showing Markdown/spec contract edits only. | covered | None |
+| `SEC-DB-001` | Preserve no database, query, migration, or persistence engine code changes. | Yes | TD-016, TD-018, and final changed-file evidence showing no DB files, migrations, or commands changed. | covered | None |
+| `SEC-LOG-001` | Keep audit evidence useful without raw secrets, PAN, credentials, tokens, or sensitive payloads. | Yes | TD-019 plus verification report evidence expectations for sanitized review-security/verify/archive reports. | covered | None |
+
+## No-Impact Assessment
+
+Not applicable. This change intentionally modifies active SDD security contracts, routing authority wording, status/persistence boundaries, and source specs. It has no application runtime impact, but it has direct workflow and security-evidence impact, so static/manual checks are required.
+
+## Evidence Expectations
+
+- Mandatory cases are verification-blocking when uncovered.
+- Non-mandatory cases should be reported as warnings when uncovered, but they do not block verification by themselves.
+- Security validation evidence must cite embedded `design.md#secure-development-design` metadata: `security-impacting`, catalog `security-guidelines-initial-user-snapshot-2026-06-30`, catalog version `1`, taxonomy version `1`, lifecycle statuses, and the planned static/manual evidence above.
+- No standalone `security-design.md` artifact is required or expected for this new change.
+- Historical `security-design` and `security-applicability` refs may remain only as read-only status/persistence/archive data; they must not become active dependencies, launch targets, produced artifacts, or active security authority.
+- Runtime tests, linters, type checkers, formatters, and coverage commands are unavailable per `openspec/config.yaml`; verification must report them as unavailable evidence, not as passing checks.
+- Archive safety evidence must include a changed-file or diff summary proving `openspec/changes/archive/**` was untouched.
+- Safe-evidence checks must avoid printing raw sensitive values in reports; use only filenames, redacted placeholders, and summarized findings.
+
+## Open Questions
+
+None.

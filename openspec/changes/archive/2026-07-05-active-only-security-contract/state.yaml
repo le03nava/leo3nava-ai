@@ -1,0 +1,61 @@
+schemaName: sdd.state
+schemaVersion: 1
+changeName: active-only-security-contract
+artifactStore: openspec
+currentPhase: complete
+completedPhases:
+  - explore
+  - propose
+  - spec
+  - design
+  - test-design
+  - tasks
+  - apply
+  - review
+  - review-security
+  - verify
+  - archive
+artifactRefs:
+  explore:
+    - openspec/changes/archive/2026-07-05-active-only-security-contract/explore.md
+  proposal:
+    - openspec/changes/archive/2026-07-05-active-only-security-contract/proposal.md
+  specs:
+    - openspec/changes/archive/2026-07-05-active-only-security-contract/specs/sdd-security-guideline-catalog/spec.md
+    - openspec/changes/archive/2026-07-05-active-only-security-contract/specs/sdd-review-security-workflow/spec.md
+    - openspec/changes/archive/2026-07-05-active-only-security-contract/specs/sdd-design-workflow/spec.md
+    - openspec/changes/archive/2026-07-05-active-only-security-contract/specs/sdd-execution-persistence-contracts/spec.md
+    - openspec/changes/archive/2026-07-05-active-only-security-contract/specs/sdd-security-applicability-workflow/spec.md
+  securityApplicability: []
+  design:
+    - openspec/changes/archive/2026-07-05-active-only-security-contract/design.md
+  securityDesign: []
+  testDesign:
+    - openspec/changes/archive/2026-07-05-active-only-security-contract/test-design.md
+  tasks:
+    - openspec/changes/archive/2026-07-05-active-only-security-contract/tasks.md
+  applyProgress:
+    - openspec/changes/archive/2026-07-05-active-only-security-contract/apply-progress.md
+  reviewReport:
+    - openspec/changes/archive/2026-07-05-active-only-security-contract/review-report.md
+  securityReviewReport:
+    - openspec/changes/archive/2026-07-05-active-only-security-contract/review-security-report.md
+  verifyReport:
+    - openspec/changes/archive/2026-07-05-active-only-security-contract/verify-report.md
+  archiveReport:
+    - openspec/changes/archive/2026-07-05-active-only-security-contract/archive-report.md
+  state:
+    - openspec/changes/archive/2026-07-05-active-only-security-contract/state.yaml
+delivery:
+  deliveryStrategy: auto-chain
+  reviewBudgetLines: 400
+  chainStrategy: stacked-to-main
+  chainPlanRef: openspec/changes/archive/2026-07-05-active-only-security-contract/tasks.md#suggested-work-units
+  sizeException:
+    approved: false
+    approver: null
+    rationale: null
+nextRecommended: none
+blockedReasons: []
+stateRevision: 2026-07-05T21:00:00Z
+updatedAt: 2026-07-05T21:00:00Z

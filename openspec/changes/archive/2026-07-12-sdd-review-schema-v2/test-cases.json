@@ -1,0 +1,290 @@
+{
+  "schemaName": "sdd.test-cases",
+  "schemaVersion": 1,
+  "changeName": "sdd-review-schema-v2",
+  "generatedBy": "sdd-test-design",
+  "updatedBy": "sdd-verify",
+  "updatedAt": "2026-07-12T20:45:00Z",
+  "cases": [
+    {
+      "id": "TC-001",
+      "description": "Verify review-control-catalog.json has schemaVersion === 2 at root",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "skills/sdd-review/references/review-control-catalog.json root schemaVersion is 2.",
+      "spec": "sdd-review-workflow: Scenario: Catalog loads at v2",
+      "category": "catalog-schema"
+    },
+    {
+      "id": "TC-002",
+      "description": "Verify review-control-catalog.json root has 'reviewer': 'sdd-review' field",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "skills/sdd-review/references/review-control-catalog.json root reviewer is \"sdd-review\".",
+      "spec": "sdd-review-workflow: Requirement: Canonical Review JSON Authority",
+      "category": "catalog-schema"
+    },
+    {
+      "id": "TC-003",
+      "description": "Verify review-control-catalog.json root has NO generatedHumanViewRef field",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Root key enumeration found no generatedHumanViewRef field in review-control-catalog.json.",
+      "spec": "sdd-review-workflow: Scenario: Catalog loads at v2",
+      "category": "catalog-schema"
+    },
+    {
+      "id": "TC-004",
+      "description": "Verify review-control-catalog.json root has NO presentation field",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Root key enumeration found no presentation field in review-control-catalog.json.",
+      "spec": "sdd-review-workflow: Scenario: Catalog loads at v2",
+      "category": "catalog-schema"
+    },
+    {
+      "id": "TC-005",
+      "description": "Verify review-control-catalog.json root has NO validation field",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Root key enumeration found no validation field in review-control-catalog.json.",
+      "spec": "sdd-review-workflow: Scenario: Catalog loads at v2",
+      "category": "catalog-schema"
+    },
+    {
+      "id": "TC-006",
+      "description": "Verify review-control-catalog.json vocabulary has ONLY complies and severity keys (no safeEvidence, no forbiddenEvidence, no reviewer)",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "review-control-catalog.json vocabulary keys are exactly complies and severity.",
+      "spec": "sdd-review-workflow: Scenario: Vocabulary is minimal",
+      "category": "catalog-schema"
+    },
+    {
+      "id": "TC-007",
+      "description": "Verify no control entry in review-control-catalog.json carries a 'reviewer' field",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "All 96 controls were enumerated; no control object contains a reviewer key.",
+      "spec": "sdd-review-workflow: Scenario: Per-control reviewer field is absent",
+      "category": "catalog-controls"
+    },
+    {
+      "id": "TC-008",
+      "description": "Verify no control entry in review-control-catalog.json carries a 'notes' field with value exactly 'Not provided'",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "All 96 controls were enumerated; no control object has notes equal to \"Not provided\".",
+      "spec": "sdd-review-workflow: Scenario: Blank notes are absent",
+      "category": "catalog-controls"
+    },
+    {
+      "id": "TC-009",
+      "description": "Verify review-control-catalog.json contains exactly 96 control entries",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "review-control-catalog.json controls array length is 96.",
+      "spec": "sdd-review-workflow: Scenario: All controls are represented",
+      "category": "catalog-controls"
+    },
+    {
+      "id": "TC-010",
+      "description": "Verify review-report.schema.json required array contains exactly 14 fields in spec order: schemaName, schemaVersion, changeName, artifactKind, generatedAt, status, verdict, nextRecommended, totals, catalogRef, catalogSnapshotId, unavailableTooling, matrix, artifactMetadata",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "review-report.schema.json required array exactly matches the 14-field v2 order.",
+      "spec": "sdd-review-workflow: Requirement: Review Report Artifact",
+      "category": "schema-structure"
+    },
+    {
+      "id": "TC-011",
+      "description": "Verify review-report.schema.json does NOT contain any of the legacy fields: blockingSummary, evidenceSummary, runtimeChecks, inputsInspected, validation, changedFileSecurityHandoff, operationalEvidenceSummary",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Full schema text search found none of the listed legacy field names.",
+      "spec": "sdd-review-workflow: Scenario: Legacy fields are rejected",
+      "category": "schema-structure"
+    },
+    {
+      "id": "TC-012",
+      "description": "Verify review-report.schema.json $defs contains both 'ref' and 'stateArtifactRef' definitions",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "review-report.schema.json $defs contains both ref and stateArtifactRef keys.",
+      "spec": "sdd-review-workflow: Requirement: Review Report Artifact — $defs",
+      "category": "schema-structure"
+    },
+    {
+      "id": "TC-013",
+      "description": "Verify review-report.schema.json matrix items pattern matches REV-CORP-001 through REV-CORP-096",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "matrixRow.properties.item.pattern is ^REV-CORP-(00[1-9]|0[1-8][0-9]|09[0-6])$.",
+      "spec": "sdd-review-workflow: Scenario: All controls are represented",
+      "category": "schema-structure"
+    },
+    {
+      "id": "TC-014",
+      "description": "Verify review-report.schema.json matrixRow $def includes 'finding' field as free-text string (not enum)",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "matrixRow.properties.finding is type string and has no enum constraint.",
+      "spec": "sdd-review-workflow: Scenario: Finding column is populated",
+      "category": "schema-structure"
+    },
+    {
+      "id": "TC-015",
+      "description": "Verify review-report.schema.json artifactMetadata.stateRegistration has minItems: 2",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "artifactMetadata.properties.stateRegistration.minItems is 2.",
+      "spec": "sdd-review-workflow: Scenario: stateRegistration has two entries",
+      "category": "schema-structure"
+    },
+    {
+      "id": "TC-016",
+      "description": "Verify review-report.schema.json root has additionalProperties: false",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "review-report.schema.json root additionalProperties is false.",
+      "spec": "sdd-review-workflow: Requirement: Review Report Artifact — additionalProperties",
+      "category": "schema-strictness"
+    },
+    {
+      "id": "TC-017",
+      "description": "Verify review-report.schema.json all nested objects (totals, matrixRow, stateArtifactRef, ref, artifactMetadata) have additionalProperties: false",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "review-report.schema.json root plus all object-type definitions have additionalProperties: false: totals, artifactMetadata, stateArtifactRef, and matrixRow. $defs.ref is a string schema ({ type: string, minLength: 1 }), so additionalProperties is inapplicable under JSON Schema 2020-12.",
+      "spec": "sdd-review-workflow: Requirement: Review Report Artifact — additionalProperties",
+      "category": "schema-strictness"
+    },
+    {
+      "id": "TC-018",
+      "description": "Verify report-template.md contains '## JSON Field Mapping' section with a table mapping all 14 v2 required fields and no legacy fields",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "report-template.md ## JSON Field Mapping contains a 14-row table listing every required root field from review-report.schema.json with type and rendering destination, and no listed legacy fields.",
+      "spec": "sdd-review-workflow: Scenario: Field mapping table is updated",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-019",
+      "description": "Verify report-template.md contains '## Required Structure' skeleton section showing full matrix spec",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "report-template.md contains ## Required Structure and a matrix skeleton with the v2 column header.",
+      "spec": "sdd-review-workflow: Requirement: Report Template v2 Structure",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-020",
+      "description": "Verify report-template.md matrix table header columns are exactly: Item | Requirement | Standard | Category | Severity | Complies | Finding | Evidence Location | Notes",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "report-template.md matrix header matches the required 9-column sequence exactly.",
+      "spec": "sdd-review-workflow: Scenario: Matrix columns include Finding",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-021",
+      "description": "Verify report-template.md contains matrix join instruction: matrix[].item joined with catalog controls[].id",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "report-template.md contains the exact rendering rule: Rendering rule: join `matrix[].item` with `catalog controls[].id` to get `Requirement`, `Standard`, `Category`, `Severity` columns.",
+      "spec": "sdd-review-workflow: Requirement: Report Template v2 Structure — Matrix Rules",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-022",
+      "description": "Verify report-template.md does NOT contain '## Matrix Validation' section",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Full template heading search found no ## Matrix Validation section.",
+      "spec": "sdd-review-workflow: Scenario: Validation sections are absent",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-023",
+      "description": "Verify report-template.md does NOT contain '## Catalog Validation' section",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Full template heading search found no ## Catalog Validation section.",
+      "spec": "sdd-review-workflow: Scenario: Validation sections are absent",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-024",
+      "description": "Verify report-template.md DOES contain '## Safe Evidence Rules' section with verbatim content from original lines 108–111",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "report-template.md ## Safe Evidence Rules contains exactly the expected four bullet lines verbatim, including forbidden evidence classes, unavailable-tooling handling, and the Excel/Python/script/spreadsheet/workbook exclusion sentence.",
+      "spec": "sdd-review-workflow: Scenario: Safe Evidence Rules are verbatim",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-025",
+      "description": "Verify report-template.md content before '## JSON Field Mapping' (lines 1–8) remains unchanged from v1",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "The pre-field-mapping preamble before ## JSON Field Mapping is preserved unchanged in report-template.md.",
+      "spec": "sdd-review-workflow: Requirement: Report Template v2 Structure — pre-field-mapping content unchanged",
+      "category": "template-structure"
+    },
+    {
+      "id": "TC-026",
+      "description": "Verify the three reference files are internally coherent: catalog schemaVersion matches schema $comment reference; template matrix columns match schema matrixRow fields; template field-mapping table references exactly the 14 schema required fields",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Catalog schemaVersion is 2; schema requires exactly the same 14 root fields listed in the template mapping; template matrix presentation is coherent with schema matrixRow fields plus the explicit catalog join for Requirement, Standard, Category, and Severity.",
+      "spec": "sdd-review-workflow: Scenario: Reference artifacts are coherent",
+      "category": "cross-artifact-coherence"
+    },
+    {
+      "id": "TC-027",
+      "description": "Verify skills/sdd-review-security/ directory was NOT modified (no file changes in that path)",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "git diff --name-only -- skills/sdd-review-security/ returned no paths.",
+      "spec": "sdd-review-workflow: Scenario: sdd-review-security is deferred",
+      "category": "non-regression"
+    },
+    {
+      "id": "TC-028",
+      "description": "Confirm all test runner, unit, integration, e2e, coverage, linter, type checker, and formatter tooling is unavailable — report as explicit unavailable-tooling evidence, not as passing checks",
+      "type": "static",
+      "mandatory": false,
+      "status": "verified",
+      "evidence": "openspec/config.yaml marks test_runner, unit, integration, e2e, coverage, linter, type_checker, and formatter as unavailable; no runtime/static tooling was treated as passing evidence.",
+      "spec": "openspec/config.yaml: testing.test_runner.available: false",
+      "category": "tooling-constraint"
+    }
+  ]
+}

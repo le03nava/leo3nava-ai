@@ -1,0 +1,160 @@
+{
+  "schemaName": "sdd.test-cases",
+  "schemaVersion": 1,
+  "changeName": "sdd-cost-tracker-calls",
+  "generatedBy": "sdd-test-design",
+  "updatedBy": "sdd-verify",
+  "updatedAt": "2026-07-16T00:00:00Z",
+  "cases": [
+    {
+      "id": "TC-001",
+      "description": "InsertCall happy path: insert a CallRecord with valid fields, verify row count in calls table",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Implemented TestInsertCallHappyPath in tools-go/sdd-cost-tracker/storage_test.go; verified by go test ./... (PASS).",
+      "spec": "call-level-cost-tracking: REQ-STORE-INSERT",
+      "category": "storage-unit"
+    },
+    {
+      "id": "TC-002",
+      "description": "GetCallsBySession happy path: insert one call, retrieve by session_id, verify returned record matches",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Implemented TestGetCallsBySessionHappyPath in storage_test.go asserting returned fields; verified by go test ./... (PASS).",
+      "spec": "call-level-cost-tracking: REQ-STORE-QUERY",
+      "category": "storage-unit"
+    },
+    {
+      "id": "TC-003",
+      "description": "GetCallsBySession no rows: call with unknown session_id returns empty slice (not error)",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Implemented TestGetCallsBySessionEmpty in storage_test.go and confirmed empty result behavior; verified by go test ./... (PASS).",
+      "spec": "call-level-cost-tracking: REQ-STORE-QUERY-EMPTY",
+      "category": "storage-unit"
+    },
+    {
+      "id": "TC-004",
+      "description": "Multiple calls same session: insert three CallRecords with the same session_id, verify all three are returned",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Implemented TestGetCallsBySessionMultiple in storage_test.go with 3 inserted calls; verified by go test ./... (PASS).",
+      "spec": "call-level-cost-tracking: REQ-STORE-MULTI",
+      "category": "storage-unit"
+    },
+    {
+      "id": "TC-005",
+      "description": "call_index ordering: insert calls with call_index 2, 0, 1 for same session, verify GetCallsBySession returns them ordered call_index ASC",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Implemented TestGetCallsBySessionOrdering inserting indices 2,0,1 and asserting 0,1,2 order; verified by go test ./... (PASS).",
+      "spec": "call-level-cost-tracking: REQ-STORE-ORDER",
+      "category": "storage-unit"
+    },
+    {
+      "id": "TC-006",
+      "description": "POST /calls valid body: send JSON with all required CallRecord fields, expect HTTP 201 and Content-Type: application/json",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Implemented TestHTTPPostCallsInsertReturnsCreated in tools-go/sdd-cost-tracker/http_test.go; verified by go test ./... (PASS).",
+      "spec": "call-level-cost-tracking: REQ-HTTP-POST-201",
+      "category": "http-integration"
+    },
+    {
+      "id": "TC-007",
+      "description": "POST /calls missing phase_session_id: send JSON body without session_id field, expect HTTP 400 with error payload",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Implemented TestHTTPPostCallsMissingSessionIDReturns400 and assertErrorPayload; verified by go test ./... (PASS).",
+      "spec": "call-level-cost-tracking: REQ-HTTP-POST-400-MISSING",
+      "category": "http-integration"
+    },
+    {
+      "id": "TC-008",
+      "description": "POST /calls malformed JSON: send non-JSON body, expect HTTP 400 with error payload",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Implemented TestHTTPPostCallsMalformedJSONReturns400 sending raw not-json body; verified by go test ./... (PASS).",
+      "spec": "call-level-cost-tracking: REQ-HTTP-POST-400-MALFORMED",
+      "category": "http-integration"
+    },
+    {
+      "id": "TC-009",
+      "description": "GET /calls valid session_id: seed one call, request GET /calls?session_id=X, expect HTTP 200 and JSON array with that call",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Implemented TestHTTPGetCallsValidSession with seeded call and 200 calls payload assertion; verified by go test ./... (PASS).",
+      "spec": "call-level-cost-tracking: REQ-HTTP-GET-200",
+      "category": "http-integration"
+    },
+    {
+      "id": "TC-010",
+      "description": "GET /calls unknown session_id: request GET /calls?session_id=ghost, expect HTTP 200 and empty calls array",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Implemented TestHTTPGetCallsUnknownSession and confirmed empty calls array response; verified by go test ./... (PASS).",
+      "spec": "call-level-cost-tracking: REQ-HTTP-GET-EMPTY",
+      "category": "http-integration"
+    },
+    {
+      "id": "TC-011",
+      "description": "GET /calls missing session_id param: request GET /calls without query param, expect HTTP 400 with error payload",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Implemented TestHTTPGetCallsMissingSessionIDReturns400 and assertErrorPayload; verified by go test ./... (PASS).",
+      "spec": "call-level-cost-tracking: REQ-HTTP-GET-400",
+      "category": "http-integration"
+    },
+    {
+      "id": "TC-012",
+      "description": "Backward compatibility: all existing phases tests (TestSchemaInit, TestUpsertInsert, TestUpsertConflict, TestListChanges, TestGetChangePhases, TestGetSummaryAggregation, TestGetSummaryEmpty, TestHealth, TestHTTPPostPhasesInsertReturnsCreated, TestHTTPPostPhasesUpsertReturnsOK, TestHTTPPostPhasesMissingProjectReturns400, TestHTTPPostPhasesMissingRequiredFieldsReturns400, TestHTTPHealth, TestHTTPListChanges, TestHTTPListChangesMissingProject, TestHTTPGetChangePhases, TestHTTPGetChangePhasesNoMatchReturnsEmptyArray, TestHTTPSummary, TestHTTPSummaryMissingProject) still pass after the calls table and handlers are added",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Executed go test ./... in tools-go/sdd-cost-tracker; full suite including existing phases tests passed.",
+      "spec": "sdd-cost-tracking: backward-compatibility",
+      "category": "regression"
+    },
+    {
+      "id": "TC-013",
+      "description": "Build check: go build -o sdd-cost-tracker.exe . succeeds with zero errors in tools-go/sdd-cost-tracker",
+      "type": "automated",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Executed go build -o sdd-cost-tracker.exe . in tools-go/sdd-cost-tracker; command exited 0.",
+      "spec": "sdd-cost-tracking: build-integrity",
+      "category": "build"
+    },
+    {
+      "id": "TC-014",
+      "description": "Plugin callIndex increment: manual code review of sdd-cost-tracker.ts verifies callIndices map increments per session and resets (or is absent) for new sessions",
+      "type": "manual",
+      "mandatory": false,
+      "status": "verified",
+      "evidence": "Manual static review of src/plugins/sdd-cost-tracker.ts confirms dedicated callIndices map, per-session increment, reset on session.created/session.idle, and per-message postCall payload.",
+      "spec": "call-level-cost-tracking: REQ-PLUGIN-INDEX",
+      "category": "plugin-manual"
+    },
+    {
+      "id": "TC-015",
+      "description": "Security no-impact review: static review of design.md#secure-development-design confirms classification is no-impact, changed surface stores only numeric token/cost values to localhost SQLite, and no security categories are applicable",
+      "type": "static",
+      "mandatory": true,
+      "status": "verified",
+      "evidence": "Static review confirms implementation surface matches no-impact design rationale: localhost HTTP /calls + SQLite calls table storing numeric token/cost telemetry only.",
+      "spec": "sdd-cost-tracking: secure-development-design",
+      "category": "security-static"
+    }
+  ]
+}

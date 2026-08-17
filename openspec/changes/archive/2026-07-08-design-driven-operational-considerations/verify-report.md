@@ -1,0 +1,109 @@
+# Verification Report: Design-Driven Operational Considerations
+
+```yaml
+schemaName: sdd.verify-report
+schemaVersion: 1
+changeName: design-driven-operational-considerations
+artifactStore: openspec
+verdict: PASS WITH WARNINGS
+finalVerdict: PASS WITH WARNINGS
+archiveReady: true
+criticalFindings: 0
+blockingFindings: 0
+tasksComplete: 15
+tasksTotal: 15
+generalReviewVerdict: PASS WITH WARNINGS
+generalReviewBlockers: 0
+securityReviewVerdict: PASS WITH WARNINGS
+securityReviewBlockers: 0
+warningCount: 1
+warningSummary: runtime/build/lint/type/format/coverage tooling unavailable by repository configuration
+nextRecommended: archive
+```
+
+## Final Verdict
+
+PASS WITH WARNINGS. Archive readiness is true.
+
+Formal verification confirms 15/15 tasks complete, 0 critical findings, 0 blocking findings, non-blocking general review evidence, non-blocking security review evidence, and complete static/manual evidence for the Markdown instruction-contract change. The only warning is unavailable runtime/build/lint/type/format/coverage tooling by repository configuration.
+
+## Completeness
+
+| Metric | Value |
+| --- | ---: |
+| Archive readiness | PASS WITH WARNINGS |
+| Tasks total | 15 |
+| Tasks complete | 15 |
+| Tasks incomplete | 0 |
+| Proposal success criteria covered | 4/4 |
+| Delta specs readable | 7/7 |
+| Test-design cases covered | 15/15 |
+| Mandatory test-design cases covered | 15/15 |
+| General review blockers | 0 |
+| Security review blockers | 0 |
+| Blocking findings | 0 |
+
+## Prerequisite Review Evidence
+
+| Artifact | Verdict | Blocking findings | Verification use |
+| --- | --- | ---: | --- |
+| `openspec/changes/design-driven-operational-considerations/review-report.md` | PASS WITH WARNINGS | 0 | Consumed as general review handoff; matrix ownership stays in review. |
+| `openspec/changes/design-driven-operational-considerations/review-security-report.md` | PASS WITH WARNINGS | 0 | Consumed as security review handoff; compact/security-source ownership stays in review-security. |
+
+Security review summary consumed: 8/8 compact `SEC-*` rows materialized exactly once, 0 blockers, 0 unsafe evidence findings, 0 exceptions. Corporate source-row validation is not applicable for this Markdown instruction-contract change; review-security validated source-row ownership boundaries and routed to verify.
+
+## Execution Evidence
+
+| Check | Source | Result |
+| --- | --- | --- |
+| Runtime tests | `openspec/config.yaml#testing.test_runner.command` | Unavailable by repo configuration |
+| Build | `openspec/config.yaml#rules.verify.build_command` | Unavailable by repo configuration |
+| Linter | `openspec/config.yaml#testing.quality.linter.command` | Unavailable by repo configuration |
+| Type checker | `openspec/config.yaml#testing.quality.type_checker.command` | Unavailable by repo configuration |
+| Formatter | `openspec/config.yaml#testing.quality.formatter.command` | Unavailable by repo configuration |
+| Coverage | `openspec/config.yaml#testing.coverage.command` | Unavailable by repo configuration |
+| Whitespace/static diff check | `git diff --check` | PASS |
+| Deleted contract inspection | File absence for `skills/_shared/sdd-operational-readiness-contract.md` | PASS |
+| Active skill stale-reference search | Search scoped to `skills/**/*.md` for deleted-contract/stale-heading wording | PASS — zero active matches |
+| Task checkbox inspection | Static inspection of `tasks.md` | PASS: 15 checked tasks, 0 unchecked tasks |
+
+## Proposal and Spec Coverage
+
+| Area | Evidence | Result |
+| --- | --- | --- |
+| Deleted mandatory readiness contract | `proposal.md`, `design.md`, `tasks.md`, active workspace file absence | PASS |
+| Design-owned operational considerations | `design.md`, `skills/sdd-design/SKILL.md`, active `sdd-design-workflow` spec | PASS |
+| Downstream evidence consumption from actual artifacts | `test-design.md`, `tasks.md`, affected phase skills, active specs | PASS |
+| Safe-evidence and restricted-data protections preserved | `design.md#secure-development-design`, `skills/_shared/sdd-security-contract.md`, `review-security-report.md` | PASS |
+| Manual operational document boundary | `skills/sdd-operational-doc/SKILL.md`, project instructions, proposal out-of-scope notes | PASS |
+
+Compliance summary: 7/7 delta specs and 15/15 planned test-design cases are covered through approved static/manual evidence for this repository.
+
+## Security Evidence
+
+| Control area | Result |
+| --- | --- |
+| Embedded secure-development design present | PASS |
+| Compact security controls consumed from review-security | PASS: 8/8 rows, 0 blockers |
+| Unsafe ordinary SDD evidence | PASS: none found by review-security |
+| Exceptions | PASS: none |
+| Corporate source-row matrix | N/A: ownership boundary validated by review-security |
+
+Security evidence summary: mandatory evidence-safety controls are covered; no unsafe secrets, credentials, PAN, PII, raw logs, restricted production identifiers, generated bytes, full ID lists, or final-document-only value backfill were reported.
+
+## Test-Design Coverage
+
+| Case range | Result |
+| --- | --- |
+| TD-001 through TD-015 mandatory cases | PASS: 15/15 covered |
+| Non-mandatory cases | N/A: none planned |
+
+## Warning Summary
+
+| Warning | Blocking | Evidence |
+| --- | --- | --- |
+| Runtime/build/lint/type/format/coverage tooling is unavailable by repository configuration, so verification evidence is static/manual. | No | `openspec/config.yaml#testing`; `review-report.md`; `review-security-report.md` |
+
+## Archive Readiness
+
+Archive readiness is true: tasks complete, general review non-blocking, security review non-blocking, verification passing with warnings only, Blocking findings: 0, and the only warning is unavailable tooling explicitly carried forward.
