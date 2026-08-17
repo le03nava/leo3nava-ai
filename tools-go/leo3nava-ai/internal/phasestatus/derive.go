@@ -89,3 +89,20 @@ func deriveDependencies(m map[ArtifactType]ArtifactState, tp TaskProgress) (map[
 
 	return deps, blockedReasons
 }
+
+// routeNext determines the next recommended phase by walking the ordered
+// dependency gates. If blockedReasons is non-empty (anomaly detected),
+// it returns NextNone. Otherwise it returns the first phase in DepReady state.
+func routeNext(_ map[ArtifactType]ArtifactState, deps map[string]DependencyState, blockedReasons []string) NextRecommended {
+	if len(blockedReasons) > 0 {
+		return NextNone
+	}
+
+	for _, phase := range PhaseOrder {
+		if deps[phase] == DepReady {
+			return NextRecommended(phase)
+		}
+	}
+
+	return NextNone
+}

@@ -297,3 +297,172 @@ func TestDeriveTaskProgressPercentRounding(t *testing.T) {
 		t.Errorf("percent: want 25.0, got %f", got.Percent)
 	}
 }
+
+// --- Routing tests ---
+
+func TestRouteNextAllPhasesComplete(t *testing.T) {
+	deps := map[string]DependencyState{
+		PhaseProposal: DepAllDone,
+		PhaseSpecs:    DepAllDone,
+		PhaseDesign:   DepAllDone,
+		PhaseTasks:    DepAllDone,
+		PhaseApply:    DepAllDone,
+		PhaseVerify:   DepAllDone,
+	}
+
+	got := routeNext(nil, deps, nil)
+
+	if got != NextNone {
+		t.Errorf("want %s, got %s", NextNone, got)
+	}
+}
+
+func TestRouteNextMissingProposal(t *testing.T) {
+	deps := map[string]DependencyState{
+		PhaseProposal: DepReady,
+		PhaseSpecs:    DepBlocked,
+		PhaseDesign:   DepBlocked,
+		PhaseTasks:    DepBlocked,
+		PhaseApply:    DepBlocked,
+		PhaseVerify:   DepBlocked,
+	}
+
+	got := routeNext(nil, deps, nil)
+
+	if got != NextProposal {
+		t.Errorf("want %s, got %s", NextProposal, got)
+	}
+}
+
+func TestRouteNextMissingSpecs(t *testing.T) {
+	deps := map[string]DependencyState{
+		PhaseProposal: DepAllDone,
+		PhaseSpecs:    DepReady,
+		PhaseDesign:   DepBlocked,
+		PhaseTasks:    DepBlocked,
+		PhaseApply:    DepBlocked,
+		PhaseVerify:   DepBlocked,
+	}
+
+	got := routeNext(nil, deps, nil)
+
+	if got != NextSpecs {
+		t.Errorf("want %s, got %s", NextSpecs, got)
+	}
+}
+
+func TestRouteNextMissingDesign(t *testing.T) {
+	deps := map[string]DependencyState{
+		PhaseProposal: DepAllDone,
+		PhaseSpecs:    DepAllDone,
+		PhaseDesign:   DepReady,
+		PhaseTasks:    DepBlocked,
+		PhaseApply:    DepBlocked,
+		PhaseVerify:   DepBlocked,
+	}
+
+	got := routeNext(nil, deps, nil)
+
+	if got != NextDesign {
+		t.Errorf("want %s, got %s", NextDesign, got)
+	}
+}
+
+func TestRouteNextMissingTasks(t *testing.T) {
+	deps := map[string]DependencyState{
+		PhaseProposal: DepAllDone,
+		PhaseSpecs:    DepAllDone,
+		PhaseDesign:   DepAllDone,
+		PhaseTasks:    DepReady,
+		PhaseApply:    DepBlocked,
+		PhaseVerify:   DepBlocked,
+	}
+
+	got := routeNext(nil, deps, nil)
+
+	if got != NextTasks {
+		t.Errorf("want %s, got %s", NextTasks, got)
+	}
+}
+
+func TestRouteNextMissingApply(t *testing.T) {
+	deps := map[string]DependencyState{
+		PhaseProposal: DepAllDone,
+		PhaseSpecs:    DepAllDone,
+		PhaseDesign:   DepAllDone,
+		PhaseTasks:    DepAllDone,
+		PhaseApply:    DepReady,
+		PhaseVerify:   DepBlocked,
+	}
+
+	got := routeNext(nil, deps, nil)
+
+	if got != NextApply {
+		t.Errorf("want %s, got %s", NextApply, got)
+	}
+}
+
+func TestRouteNextMissingVerify(t *testing.T) {
+	deps := map[string]DependencyState{
+		PhaseProposal: DepAllDone,
+		PhaseSpecs:    DepAllDone,
+		PhaseDesign:   DepAllDone,
+		PhaseTasks:    DepAllDone,
+		PhaseApply:    DepAllDone,
+		PhaseVerify:   DepReady,
+	}
+
+	got := routeNext(nil, deps, nil)
+
+	if got != NextVerify {
+		t.Errorf("want %s, got %s", NextVerify, got)
+	}
+}
+
+func TestRouteNextAnomalyProducesNone(t *testing.T) {
+	deps := map[string]DependencyState{
+		PhaseProposal: DepAllDone,
+		PhaseSpecs:    DepAllDone,
+		PhaseDesign:   DepAllDone,
+		PhaseTasks:    DepAllDone,
+		PhaseApply:    DepBlocked,
+		PhaseVerify:   DepBlocked,
+	}
+	reasons := []string{"tasks complete but apply-progress artifact is missing or partial"}
+
+	got := routeNext(nil, deps, reasons)
+
+	if got != NextNone {
+		t.Errorf("want %s, got %s", NextNone, got)
+	}
+}
+
+func TestRouteNextBlockedPhasesSkipToReady(t *testing.T) {
+	// proposal done, specs blocked (anomaly upstream), design ready
+	deps := map[string]DependencyState{
+		PhaseProposal: DepAllDone,
+		PhaseSpecs:    DepBlocked,
+		PhaseDesign:   DepReady,
+		PhaseTasks:    DepBlocked,
+		PhaseApply:    DepBlocked,
+		PhaseVerify:   DepBlocked,
+	}
+
+	got := routeNext(nil, deps, nil)
+
+	// Should route to the first ready phase (design), skipping blocked specs
+	if got != NextDesign {
+		t.Errorf("want %s, got %s", NextDesign, got)
+	}
+}
+
+func TestRouteNextEmptyDeps(t *testing.T) {
+	deps := map[string]DependencyState{}
+
+	got := routeNext(nil, deps, nil)
+
+	// No phases have DepReady state, so nothing to route to.
+	if got != NextNone {
+		t.Errorf("want %s on empty deps, got %s", NextNone, got)
+	}
+}
