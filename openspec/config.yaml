@@ -7,43 +7,43 @@ project:
 
 context: |
   Repository type: AI agent/skill distribution, not an application runtime.
-  Stack: Markdown instruction contracts for SDD agents and skills, plus adapter prompt copies for OpenCode and Claude.
-  Architecture: SDD phase executors, shared SDD contracts under src/skills/_shared, and local support artifacts under .atl.
-  Testing: No package manifest, build file, or executable test runner detected in this repository.
+  Stack: Go (tools-go/sdd-cost-tracker), Python (tools-py/*), Markdown instruction contracts for SDD agents and skills.
+  Architecture: SDD phase executors, shared contracts under src/skills/_shared, local support artifacts under .atl.
+  Testing: Go test runner available (go1.25.3); tools-py uses pytest. No root-level package manifest.
   Style: Skills use YAML frontmatter and concise runtime-contract sections; generated technical artifacts default to English.
 
-strict_tdd: false
+strict_tdd: true
 
 testing:
-  strict_tdd: false
-  reason: No test runner or strict TDD marker/config was detected during initialization.
+  strict_tdd: true
+  reason: Go test runner detected (go test); defaulting to strict TDD per decision gate.
   test_runner:
-    available: false
-    framework: null
-    command: ""
+    available: true
+    framework: "go test (standard testing package)"
+    command: "go test ./..."
   layers:
     unit:
-      available: false
-      tool: null
+      available: true
+      tool: "go test (testing pkg)"
     integration:
-      available: false
-      tool: null
+      available: true
+      tool: "go test (external cmds)"
     e2e:
       available: false
       tool: null
   coverage:
-    available: false
-    command: ""
+    available: true
+    command: "go test -cover ./..."
   quality:
     linter:
       available: false
-      command: ""
+      command: "golangci-lint not installed"
     type_checker:
-      available: false
-      command: ""
+      available: true
+      command: "go vet ./..."
     formatter:
-      available: false
-      command: ""
+      available: true
+      command: "gofmt -l ."
 
 delivery:
   strategy: auto-chain
@@ -66,11 +66,11 @@ rules:
   apply:
     - Follow existing Markdown/frontmatter conventions.
     - Do not modify application code during SDD initialization.
-    tdd: false
-    test_command: ""
+    tdd: true
+    test_command: "go test ./..."
   verify:
-    test_command: ""
-    build_command: ""
+    test_command: "go test ./..."
+    build_command: "go build ./..."
     coverage_threshold: 0
     notes:
       - Report unavailable runtime tests explicitly instead of treating missing tools as passing evidence.
